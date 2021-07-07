@@ -43,6 +43,93 @@ system or simulator. Ideally the meaning of the program does not change
 if some or all of the directives are ignored, so they can be interpreted
 at the discretion of the consuming process.</p>
 </section>
+<section id="input-output">
+<h1>Input/output<a class="headerlink" href="#input-output" title="Permalink to this headline">¶</a></h1>
+<p>OpenQASM introduces features targeted to support near-time computation, in
+the form of parameterized circuits. These features are modifiers <code class="docutils literal notranslate"><span class="pre">input</span></code>
+and <code class="docutils literal notranslate"><span class="pre">output</span></code>, which allow OpenQASM3 circuits to accept input parameters
+and return select output parameters.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">input</span></code> modifier can be used to indicate that one or more variable
+declarations represent values which will be provided at run-time, upon
+invocation. This allows the programmer to use the same compiled circuits
+which only differ in the values of certain parameters. For backward compatibility,
+OpenQASM3 does not require an <code class="docutils literal notranslate"><span class="pre">input</span></code> declaration to be provided. When
+an <code class="docutils literal notranslate"><span class="pre">input</span></code> declaration is provided, the compiler produces an executable
+that leaves these free parameters unspecified: a circuit run would take as
+input both the executable and some choice of the parameters.</p>
+<p>Similarly, the <code class="docutils literal notranslate"><span class="pre">output</span></code> modifier can be used to indicate that one or more variables
+are to be provided as an explicit output of the quantum procedure. Note that
+OpenQASM 2 did not allow the programmer to specify that only a subset of its
+variables should be returned as output, and so it would return all classical
+variables (which were all creg variables) as output. For compatibility,
+OpenQASM 3 does not require an output declaration to be provided: in this
+case it assumes that all of the declared variables are to be returned as
+output. If the programmer provides one or more output declarations, then only
+those variables described as outputs will be returned as an output of the
+quantum process. A variable may not be marked as both input and output.</p>
+<p>The input and output modifiers allow the programmer to more easily write
+variational quantum algorithms: a quantum algorithm with some free parameters,
+which may be run many times with different parameter values which are determined
+by a classical optimiser at near-time. Rather than write a circuit which
+generates a new sequence of operations for each run, OpenQASM 3 allows such
+circuits to be expressed as a single program with input parameters. This
+allows the programmer to communicate many different circuits with a single
+file, which only has to be compiled once, amortizing the cost of compilation
+across many runs. For an example, we may consider a parameterized circuit which
+performs a measurement in a basis given by an input parameter:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">input</span> <span class="kt">int</span> <span class="n">basis</span><span class="p">;</span> <span class="c1">// 0 = X basis, 1 = Y basis, 2 = Z basis</span>
+<span class="n">output</span> <span class="n">bit</span> <span class="n">result</span><span class="p">;</span>
+<span class="n">qubit</span> <span class="n">q</span><span class="p">;</span>
+
+<span class="c1">// Some complicated circuit...</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="n">basis</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="n">h</span> <span class="n">q</span><span class="p">;</span>
+<span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">basis</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="n">rx</span><span class="p">(</span><span class="err">π</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span> <span class="n">q</span><span class="p">;</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">measure</span> <span class="n">q</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>For a second example, consider the Variable Quantum Eigensolver (VQE) algorithm <span class="bibtex" id="id1">[peruzzo2014variational]</span>.
+In this algorithm the same circuit is repeated
+many times using different sets of free parameters to minimize an expectation
+value. The following is an example, in which there is also more than one input
+variable:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">input</span> <span class="n">angle</span><span class="p">[</span><span class="mi">32</span><span class="p">]</span> <span class="n">param1</span><span class="p">;</span>
+<span class="n">input</span> <span class="n">angle</span><span class="p">[</span><span class="mi">32</span><span class="p">]</span> <span class="n">param2</span><span class="p">;</span>
+<span class="n">qubit</span> <span class="n">q</span><span class="p">;</span>
+
+<span class="c1">// Build an ansatz using the above free parameters, eg.</span>
+<span class="n">rx</span><span class="p">(</span><span class="n">param1</span><span class="p">)</span> <span class="n">q</span><span class="p">;</span>
+<span class="n">ry</span><span class="p">(</span><span class="n">param2</span><span class="p">)</span> <span class="n">q</span><span class="p">;</span>
+
+<span class="c1">// Estimate the expectation value and store in an output variable</span>
+</pre></div>
+</div>
+<p>The following Python pseudocode illustrates the differences between using and
+not using parameterized circuits in a quantum program for the case of the VQE:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example without using parametric circuits:</span>
+
+<span class="k">for</span> <span class="n">theta</span> <span class="ow">in</span> <span class="n">thetas</span><span class="p">:</span>
+    <span class="c1"># Create an OpenQASM circuit with θ defined</span>
+    <span class="n">circuit</span> <span class="o">=</span> <span class="n">subsitute_theta</span><span class="p">(</span><span class="n">read</span><span class="p">(</span><span class="s2">&quot;circuit.qasm&quot;</span><span class="p">))</span>
+
+    <span class="c1"># The slow compilation step is run on each iteration of the inner loop</span>
+    <span class="n">binary</span> <span class="o">=</span> <span class="n">compile_qasm</span><span class="p">(</span><span class="n">circuit</span><span class="p">)</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">run_program</span><span class="p">(</span><span class="n">binary</span><span class="p">)</span>
+
+<span class="c1"># Example using parametric circuits:</span>
+
+<span class="c1"># parametric_circuit.qasm begins with the line &quot;input angle θ;&quot;</span>
+<span class="n">circuit</span> <span class="o">=</span> <span class="n">read</span><span class="p">(</span><span class="s2">&quot;parametric_circuit.qasm&quot;</span><span class="p">)</span>
+
+<span class="c1"># The slow compilation step only happens once</span>
+<span class="n">binary</span> <span class="o">=</span> <span class="n">compile_qasm</span><span class="p">(</span><span class="n">circuit</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">theta</span> <span class="ow">in</span> <span class="n">thetas</span><span class="p">:</span>
+    <span class="c1"># Each iteration of the inner loop is reduced to only running the circuit</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">run_program</span><span class="p">(</span><span class="n">binary</span><span class="p">,</span> <span class="n">θ</span><span class="o">=</span><span class="n">theta</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
 
 
           </div>
@@ -73,6 +160,7 @@ at the discretion of the consuming process.</p>
 <li class="toctree-l2"><a class="reference internal" href="classical.html">Classical instructions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="subroutines.html">Subroutines</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Directives</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#input-output">Input/output</a></li>
 <li class="toctree-l2"><a class="reference internal" href="delays.html">Circuit timing</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pulses.html">Pulse-level descriptions of gates and measurement</a></li>
 </ul>
@@ -117,7 +205,7 @@ at the discretion of the consuming process.</p>
       &copy;2017-2020, Andrew W. Cross, Lev S. Bishop, John A. Smolin, Jay M. Gambetta.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.0.2</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.0.3</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |

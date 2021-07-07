@@ -36,17 +36,18 @@
             
   <section id="classical-instructions">
 <h1>Classical instructions<a class="headerlink" href="#classical-instructions" title="Permalink to this headline">¶</a></h1>
-<p>We envision two levels of classical control that we call low-level
-instructions and high-level kernel functions. Simple, fast instructions
-control the flow of the program and allow basic computations on
-lower-level parallel control processors. These instructions are likely
+<p>We envision two levels of classical control: simple, low-level instructions embedded as
+part of a quantum circuit and high-level external functions which perform more complex
+classical computations. The low-level functions allow basic
+computations on lower-level parallel control processors. These instructions are likely
 to have known durations and many such instructions might be executed
-within the qubit coherence time. High-level kernel functions execute
-arbitrary user-defined classical subroutines that may be neither fast
-nor guaranteed to return. These assume a mechanism for passing data to
-and from higher-level processors. The kernel functions run on the global
-processor concurrently with operations on the local processors, if
-possible. Kernel functions can write to the global controller’s memory,
+within the qubit coherence time. The external, or <code class="docutils literal notranslate"><span class="pre">extern</span></code>, functions execute
+complex blocks of classical code that may be neither fast nor guaranteed to return. In order
+to connect with classical compilation infrastucture, <code class="docutils literal notranslate"><span class="pre">extern</span></code> functions are defined outside of
+OpenQASM. The compiler toolchain is expected to link <code class="docutils literal notranslate"><span class="pre">extern</span></code> functions when building an
+executable. This strategy allows the programmer to use existing libraries without porting them into
+OpenQASM. <code class="docutils literal notranslate"><span class="pre">extern</span></code> functions run on a global processor concurrently with operations on local
+processors, if possible. <code class="docutils literal notranslate"><span class="pre">extern</span></code> functions can write to the global controller’s memory,
 which may not be directly accessible by the local controllers.</p>
 <section id="low-level-classical-instructions">
 <h2>Low-level classical instructions<a class="headerlink" href="#low-level-classical-instructions" title="Permalink to this headline">¶</a></h2>
@@ -108,14 +109,16 @@ an index set, for example <code class="docutils literal notranslate"><span class
 </section>
 <section id="integers">
 <h3>Integers<a class="headerlink" href="#integers" title="Permalink to this headline">¶</a></h3>
-<p>Integer types support addition <code class="docutils literal notranslate"><span class="pre">+</span></code>, subtraction <code class="docutils literal notranslate"><span class="pre">-</span></code>, multiplication <code class="docutils literal notranslate"><span class="pre">*</span></code>, and integer
-division <a class="footnote-reference brackets" href="#id5" id="id2">2</a> <code class="docutils literal notranslate"><span class="pre">/</span></code>; the corresponding assignments <code class="docutils literal notranslate"><span class="pre">+=</span></code>, <code class="docutils literal notranslate"><span class="pre">-=</span></code>, <code class="docutils literal notranslate"><span class="pre">*=</span></code>, and <code class="docutils literal notranslate"><span class="pre">/=</span></code>; as well as
-increment <code class="docutils literal notranslate"><span class="pre">++</span></code> and decrement <code class="docutils literal notranslate"><span class="pre">--</span></code>.</p>
+<p>Integer types support addition <code class="docutils literal notranslate"><span class="pre">+</span></code>, subtraction <code class="docutils literal notranslate"><span class="pre">-</span></code>, multiplication <code class="docutils literal notranslate"><span class="pre">*</span></code>, integer division <a class="footnote-reference brackets" href="#id5" id="id2">2</a> <code class="docutils literal notranslate"><span class="pre">/</span></code>,
+modulo <code class="docutils literal notranslate"><span class="pre">%</span></code>, and power <code class="docutils literal notranslate"><span class="pre">**</span></code>; the corresponding assignments <code class="docutils literal notranslate"><span class="pre">+=</span></code>, <code class="docutils literal notranslate"><span class="pre">-=</span></code>, <code class="docutils literal notranslate"><span class="pre">*=</span></code>, <code class="docutils literal notranslate"><span class="pre">/=</span></code>, <code class="docutils literal notranslate"><span class="pre">%=</span></code> and
+<code class="docutils literal notranslate"><span class="pre">**=</span></code>; as well as increment <code class="docutils literal notranslate"><span class="pre">++</span></code> and decrement <code class="docutils literal notranslate"><span class="pre">--</span></code>.</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="p">[</span><span class="mi">32</span><span class="p">]</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
 <span class="kt">int</span><span class="p">[</span><span class="mi">32</span><span class="p">]</span> <span class="n">b</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
 
-<span class="n">a</span> <span class="o">*</span> <span class="n">b</span><span class="p">;</span> <span class="c1">// 5</span>
+<span class="n">a</span> <span class="o">*</span> <span class="n">b</span><span class="p">;</span> <span class="c1">// 6</span>
 <span class="n">b</span> <span class="o">/</span> <span class="n">a</span><span class="p">;</span> <span class="c1">// 1</span>
+<span class="n">b</span> <span class="o">%</span> <span class="n">a</span><span class="p">;</span> <span class="c1">// 1</span>
+<span class="n">a</span> <span class="o">**</span> <span class="n">b</span><span class="p">;</span> <span class="c1">// 8</span>
 <span class="n">a</span> <span class="o">+=</span> <span class="mi">4</span><span class="p">;</span> <span class="c1">// a == 6</span>
 <span class="n">a</span><span class="o">++</span><span class="p">;</span> <span class="c1">// a == 7</span>
 </pre></div>
@@ -124,14 +127,72 @@ increment <code class="docutils literal notranslate"><span class="pre">++</span>
 <section id="fixed-point-numbers-and-angles">
 <h3>Fixed-point numbers and angles<a class="headerlink" href="#fixed-point-numbers-and-angles" title="Permalink to this headline">¶</a></h3>
 <p>Fixed-point and angle types support addition, subtraction,
-multiplication, and division and the corresponding assignment operators.</p>
+multiplication, division and power and the corresponding assignment operators.</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">angle</span><span class="p">[</span><span class="mi">20</span><span class="p">]</span> <span class="n">a</span> <span class="o">=</span> <span class="n">pi</span> <span class="o">/</span> <span class="mi">2</span><span class="p">;</span>
 <span class="n">angle</span><span class="p">[</span><span class="mi">20</span><span class="p">]</span> <span class="n">b</span> <span class="o">=</span> <span class="n">pi</span><span class="p">;</span>
 <span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="p">;</span> <span class="c1">// 3/2 * pi</span>
+<span class="n">a</span> <span class="o">**</span> <span class="n">b</span><span class="p">;</span> <span class="c1">// 4.1316...</span>
 <span class="n">angle</span><span class="p">[</span><span class="mi">10</span><span class="p">]</span> <span class="n">c</span><span class="p">;</span>
 <span class="n">c</span> <span class="o">=</span> <span class="n">angle</span><span class="p">(</span><span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="p">);</span> <span class="c1">// cast to angle[10]</span>
 </pre></div>
 </div>
+</section>
+<section id="evaluation-order">
+<h3>Evaluation order<a class="headerlink" href="#evaluation-order" title="Permalink to this headline">¶</a></h3>
+<p>OpenQASM evaluates expressions from left to right.</p>
+<blockquote>
+<div><table class="docutils align-default" id="id7">
+<caption><span class="caption-number">Table 2 </span><span class="caption-text">[operator-precedence] operator precedence in OpenQASM ordered from highest precedence to lowest precedence. Higher precedence operators will be evaluated first.</span><a class="headerlink" href="#id7" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col style="width: 53%" />
+<col style="width: 47%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p>Operator</p></td>
+<td><p>Operator Types</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">()</span></code>, <code class="docutils literal notranslate"><span class="pre">[]</span></code>, <code class="docutils literal notranslate"><span class="pre">++</span></code>, <code class="docutils literal notranslate"><span class="pre">(type)(x)</span></code></p></td>
+<td><p>Call, index, incrementors, cast</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">**</span></code></p></td>
+<td><p>Power</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">!</span></code>, <code class="docutils literal notranslate"><span class="pre">-</span></code>, <code class="docutils literal notranslate"><span class="pre">~</span></code></p></td>
+<td><p>Unary</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">*</span></code>, <code class="docutils literal notranslate"><span class="pre">/</span></code>, <code class="docutils literal notranslate"><span class="pre">%</span></code></p></td>
+<td><p>Multiplicative</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">+</span></code>, <code class="docutils literal notranslate"><span class="pre">-</span></code></p></td>
+<td><p>Additive</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">&lt;&lt;</span></code>, <code class="docutils literal notranslate"><span class="pre">&gt;&gt;</span></code></p></td>
+<td><p>Bit Shift</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">&lt;</span></code>, <code class="docutils literal notranslate"><span class="pre">&lt;=</span></code>, <code class="docutils literal notranslate"><span class="pre">&gt;</span></code>, <code class="docutils literal notranslate"><span class="pre">&gt;=</span></code></p></td>
+<td><p>Comparison</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">!=</span></code>, <code class="docutils literal notranslate"><span class="pre">==</span></code></p></td>
+<td><p>Equality</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">&amp;</span></code></p></td>
+<td><p>Bitwise AND</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">^</span></code></p></td>
+<td><p>Bitwise XOR</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">\|</span></code></p></td>
+<td><p>Bitwise OR</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">&amp;&amp;</span></code></p></td>
+<td><p>Logical AND</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">||</span></code></p></td>
+<td><p>Logical OR</p></td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
 </section>
 <section id="looping-and-branching">
 <h3>Looping and branching<a class="headerlink" href="#looping-and-branching" title="Permalink to this headline">¶</a></h3>
@@ -209,23 +270,25 @@ preceding, <code class="docutils literal notranslate"><span class="pre">{</span>
 </div>
 </section>
 </section>
-<section id="kernel-function-calls">
-<h2>Kernel function calls<a class="headerlink" href="#kernel-function-calls" title="Permalink to this headline">¶</a></h2>
-<p>Kernel functions are declared by giving their signature using the
-statement <code class="docutils literal notranslate"><span class="pre">kernel</span> <span class="pre">name(inputs)</span> <span class="pre">-&gt;</span> <span class="pre">output;</span></code> where <code class="docutils literal notranslate"><span class="pre">inputs</span></code> is a comma-separated list of type names and
-<code class="docutils literal notranslate"><span class="pre">output</span></code> is a single type name. The parentheses may be omitted if there are no <code class="docutils literal notranslate"><span class="pre">inputs</span></code>.</p>
-<p>Kernel functions can take of any number of arguments whose types correspond to the classical types of OpenQASM.
-Inputs are passed by value. They can return zero or one value whose type
+<section id="extern-function-calls">
+<h2>Extern function calls<a class="headerlink" href="#extern-function-calls" title="Permalink to this headline">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">extern</span></code> functions are declared by giving their signature using the
+statement <code class="docutils literal notranslate"><span class="pre">extern</span> <span class="pre">name(inputs)</span> <span class="pre">-&gt;</span> <span class="pre">output;</span></code> where <code class="docutils literal notranslate"><span class="pre">inputs</span></code> is a comma-separated list of type
+names and <code class="docutils literal notranslate"><span class="pre">output</span></code> is a single type name. The parentheses may be omitted if there are no <code class="docutils literal notranslate"><span class="pre">inputs</span></code>.</p>
+<p><code class="docutils literal notranslate"><span class="pre">extern</span></code> functions can take of any number of arguments whose types correspond to the classical
+types of OpenQASM. Inputs are passed by value. They can return zero or one value whose type
 is any classical type in OpenQASM except real constants. If necessary,
 multiple return values can be accommodated by concatenating registers.
 The type and size of each argument must be known at compile time to
 define data flow and enable scheduling. We do not address issues such as
-how the kernel functions are defined and registered.</p>
-<p>Kernel functions are invoked using the statement <code class="docutils literal notranslate"><span class="pre">name(inputs);</span></code> and the result may be assigned to
-<code class="docutils literal notranslate"><span class="pre">output</span></code> as needed via an assignment operator (<code class="docutils literal notranslate"><span class="pre">=</span></code>, <code class="docutils literal notranslate"><span class="pre">+=</span></code>, etc). <code class="docutils literal notranslate"><span class="pre">inputs</span></code> are literals and
-<code class="docutils literal notranslate"><span class="pre">output</span></code> is a variable, corresponding to the types in the signature. The functions are not required to
-be idempotent. They may change the state of the process providing the function. In our computational
-model, the kernel functions are assumed to run concurrently with other classical and quantum computations.</p>
+how the <code class="docutils literal notranslate"><span class="pre">extern</span></code> functions are defined and registered.</p>
+<p><code class="docutils literal notranslate"><span class="pre">extern</span></code> functions are invoked using the statement <code class="docutils literal notranslate"><span class="pre">name(inputs);</span></code> and the result may be
+assigned to <code class="docutils literal notranslate"><span class="pre">output</span></code> as needed via an assignment operator (<code class="docutils literal notranslate"><span class="pre">=</span></code>, <code class="docutils literal notranslate"><span class="pre">+=</span></code>, etc). <code class="docutils literal notranslate"><span class="pre">inputs</span></code> are
+literals and <code class="docutils literal notranslate"><span class="pre">output</span></code> is a variable, corresponding to the types in the signature. The functions
+are not required to be idempotent. They may change the state of the process providing the function.
+In our computational model, <code class="docutils literal notranslate"><span class="pre">extern</span></code> functions may run concurrently with other classical and
+quantum computations. That is, invoking an <code class="docutils literal notranslate"><span class="pre">extern</span></code> function will  <em>schedule</em> a classical
+computation, but does not wait for that computation to terminate.</p>
 <dl class="footnote brackets">
 <dt class="label" id="id4"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
 <dd><p><code class="docutils literal notranslate"><span class="pre">popcount</span></code> computes the Hamming weight of the input register.</p>
@@ -272,11 +335,12 @@ compile into target code that imposes iteration limits</p>
 <li class="toctree-l2"><a class="reference internal" href="insts.html">Built-in quantum instructions</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Classical instructions</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#low-level-classical-instructions">Low-level classical instructions</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#kernel-function-calls">Kernel function calls</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#extern-function-calls">Extern function calls</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="subroutines.html">Subroutines</a></li>
 <li class="toctree-l2"><a class="reference internal" href="directives.html">Directives</a></li>
+<li class="toctree-l2"><a class="reference internal" href="directives.html#input-output">Input/output</a></li>
 <li class="toctree-l2"><a class="reference internal" href="delays.html">Circuit timing</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pulses.html">Pulse-level descriptions of gates and measurement</a></li>
 </ul>
@@ -321,7 +385,7 @@ compile into target code that imposes iteration limits</p>
       &copy;2017-2020, Andrew W. Cross, Lev S. Bishop, John A. Smolin, Jay M. Gambetta.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.0.2</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.0.3</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |

@@ -74,12 +74,18 @@ are scoped to the braces within which they are declared.</p>
 <section id="qubits">
 <h3>Qubits<a class="headerlink" href="#qubits" title="Permalink to this headline">¶</a></h3>
 <p>There is a quantum bit (<code class="docutils literal notranslate"><span class="pre">qubit</span></code>) type that is interpreted as a reference to a
-two-level subsystem of a quantum state. Quantum registers are static
-arrays of qubits that cannot be dynamically resized. The statement <code class="docutils literal notranslate"><span class="pre">qubit</span> <span class="pre">name;</span></code>
-declares a reference to a quantum bit. The statement <code class="docutils literal notranslate"><span class="pre">qubit[size]</span> <span class="pre">name;</span></code> declares a
-quantum register with <code class="docutils literal notranslate"><span class="pre">size</span></code> qubits. Sizes must always be constant positive integers.</p>
-<p>Qubit registers may also be declared as <code class="docutils literal notranslate"><span class="pre">qreg</span> <span class="pre">name[size]</span></code>. This keyword is included for backwards
-compatibility and may not be supported in the future.</p>
+two-level subsystem of a quantum state. The statement <code class="docutils literal notranslate"><span class="pre">qubit</span> <span class="pre">name;</span></code>
+declares a reference to a quantum bit. These qubits are referred
+to as “virtual qubits” (in distinction to “physical qubits” on
+actual hardware; see below). The statement <code class="docutils literal notranslate"><span class="pre">qubit[size]</span> <span class="pre">name;</span></code>
+declares a quantum register with <code class="docutils literal notranslate"><span class="pre">size</span></code> qubits.
+Sizes must always be constant positive integers. The label <code class="docutils literal notranslate"><span class="pre">name[j]</span></code>
+refers to a qubit of this register, where
+<span class="math notranslate nohighlight">\(j\in \{0,1,\dots,\mathrm{size}(\mathrm{name})-1\}\)</span> is an integer.
+Quantum registers are static arrays of qubits
+that cannot be dynamically resized.</p>
+<p>The keyword <code class="docutils literal notranslate"><span class="pre">qreg</span></code> is included
+for backwards compatibility and will be removed in the future.</p>
 <p>Qubits are initially in an undefined state. A quantum <code class="docutils literal notranslate"><span class="pre">reset</span></code> operation is one
 way to initialize qubit states.</p>
 <p>All qubits are global variables.
@@ -95,14 +101,14 @@ by the syntax <code class="docutils literal notranslate"><span class="pre">$[NUM
 references given by <code class="docutils literal notranslate"><span class="pre">$0</span></code>, <code class="docutils literal notranslate"><span class="pre">$1</span></code>, …, <code class="docutils literal notranslate"><span class="pre">$n-1</span></code>. These qubit types are
 used in lower parts of the compilation stack when emitting physical
 circuits.</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span>// Declare a qubit
-qubit gamma;
-// Declare a qubit with a Unicode name
-qubit γ;
-// Declare a qubit register with 20 qubits
-qubit[20] qubit_array;
-// CNOT gate between physical qubits 0 and 1
-CX $0, $1;
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="c1">// Declare a qubit</span>
+<span class="n">qubit</span> <span class="n">gamma</span><span class="p">;</span>
+<span class="c1">// Declare a qubit with a Unicode name</span>
+<span class="n">qubit</span> <span class="err">γ</span><span class="p">;</span>
+<span class="c1">// Declare a qubit register with 20 qubits</span>
+<span class="n">qubit</span><span class="p">[</span><span class="mi">20</span><span class="p">]</span> <span class="n">qubit_array</span><span class="p">;</span>
+<span class="c1">// CNOT gate between physical qubits 0 and 1</span>
+<span class="n">CX</span> <span class="n">$0</span><span class="p">,</span> <span class="n">$1</span><span class="p">;</span>
 </pre></div>
 </div>
 </section>
@@ -169,14 +175,14 @@ sign bit. The statement <code class="docutils literal notranslate"><span class="
 <p>IEEE 754 floating point registers may be declared with <code class="docutils literal notranslate"><span class="pre">float[size]</span> <span class="pre">name;</span></code>, where <code class="docutils literal notranslate"><span class="pre">float[64]</span></code> would
 indicate a standard double-precision float. Note that some hardware
 vendors may not support manipulating these values at run-time.</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span>// Declare a single-precision 32-bit float
-float[32] my_float = π;
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="c1">// Declare a single-precision 32-bit float</span>
+<span class="kt">float</span><span class="p">[</span><span class="mi">32</span><span class="p">]</span> <span class="n">my_float</span> <span class="o">=</span> <span class="err">π</span><span class="p">;</span>
 </pre></div>
 </div>
 </section>
 <section id="fixed-point-angles">
 <h3>Fixed-point angles<a class="headerlink" href="#fixed-point-angles" title="Permalink to this headline">¶</a></h3>
-<p>Fixed-point angles are interpreted as 2π times a 0:1:n-1
+<p>Fixed-point angles are interpreted as 2π times a 0:0:n
 fixed-point number. This represents angles in the interval
 <span class="math notranslate nohighlight">\([0,2\pi)\)</span> up to an error <span class="math notranslate nohighlight">\(\epsilon\leq \pi/2^{n-1}\)</span> modulo
 2π. The statement <code class="docutils literal notranslate"><span class="pre">angle[size]</span> <span class="pre">name;</span></code> declares an n-bit angle. OpenQASM3
@@ -185,11 +191,11 @@ representation in phase estimation circuits and numerically controlled
 oscillators found in hardware platform. Note that defining gate
 parameters with <code class="docutils literal notranslate"><span class="pre">angle</span></code> types may be necessary for those parameters to be
 compatible with run-time values on some platforms.</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span>// Declare an angle with 20 bits of precision and assign it a value of π/2
-angle[20] my_angle = π / 2;
-float[32] float_pi = π;
-// equivalent to pi_by_2 up to rounding errors
-angle[20](float_pi / 2);
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="c1">// Declare an angle with 20 bits of precision and assign it a value of π/2</span>
+<span class="n">angle</span><span class="p">[</span><span class="mi">20</span><span class="p">]</span> <span class="n">my_angle</span> <span class="o">=</span> <span class="err">π</span> <span class="o">/</span> <span class="mi">2</span><span class="p">;</span>
+<span class="kt">float</span><span class="p">[</span><span class="mi">32</span><span class="p">]</span> <span class="n">float_pi</span> <span class="o">=</span> <span class="err">π</span><span class="p">;</span>
+<span class="c1">// equivalent to pi_by_2 up to rounding errors</span>
+<span class="n">angle</span><span class="p">[</span><span class="mi">20</span><span class="p">](</span><span class="n">float_pi</span> <span class="o">/</span> <span class="mi">2</span><span class="p">);</span>
 </pre></div>
 </div>
 </section>
@@ -219,7 +225,7 @@ has a similar syntax as OpenQASM 2 parameter expressions; however,
 previously defined constants can be referenced in later variable
 declarations. Real constants are compile-time constants, allowing the
 compiler to do constant folding and other such optimizations. Scientific
-calculator-like operations on run-time values require kernel function
+calculator-like operations on run-time values require extern function
 calls as described later and are not available by default. Real
 constants can be cast to other types. Casting attempts to preserve the
 semantics, but information can be lost, since variables have fixed
@@ -227,14 +233,14 @@ precision. Unlike casting from other types, implicit casts from real
 constants are permitted.</p>
 <p>A standard set of built-in constants which are included in the default
 namespace are listed in table <a class="reference external" href="#tab:real-constants">1</a>.</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span>// Declare a constant
-const my_const = 1234;
-// Scientific notation is supported
-const another_const = 1e2;
-// Constant expressions are supported
-const pi_by_2 = π / 2;
-// Constants may be cast to real-time values
-float[32] pi_by_2_val = float(pi_by_2)
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="c1">// Declare a constant</span>
+<span class="k">const</span> <span class="n">my_const</span> <span class="o">=</span> <span class="mi">1234</span><span class="p">;</span>
+<span class="c1">// Scientific notation is supported</span>
+<span class="k">const</span> <span class="n">another_const</span> <span class="o">=</span> <span class="mf">1e2</span><span class="p">;</span>
+<span class="c1">// Constant expressions are supported</span>
+<span class="k">const</span> <span class="n">pi_by_2</span> <span class="o">=</span> <span class="err">π</span> <span class="o">/</span> <span class="mi">2</span><span class="p">;</span>
+<span class="c1">// Constants may be cast to real-time values</span>
+<span class="kt">float</span><span class="p">[</span><span class="mi">32</span><span class="p">]</span> <span class="n">pi_by_2_val</span> <span class="o">=</span> <span class="kt">float</span><span class="p">(</span><span class="n">pi_by_2</span><span class="p">)</span>
 </pre></div>
 </div>
 <div class="docutils container" id="tab-real-constants">
@@ -274,31 +280,27 @@ float[32] pi_by_2_val = float(pi_by_2)
 Types related to timing
 ———————–</p>
 </section>
-<section id="length">
-<h3>length<a class="headerlink" href="#length" title="Permalink to this headline">¶</a></h3>
-<p>We introduce a <code class="docutils literal notranslate"><span class="pre">length</span></code> type and several keywords to express lengths of time.
-Lengths are positive numbers with a unit of time. <code class="docutils literal notranslate"><span class="pre">ns,</span> <span class="pre">μs,</span> <span class="pre">ms,</span> <span class="pre">s</span></code> are used for SI time
+<section id="duration">
+<h3>Duration<a class="headerlink" href="#duration" title="Permalink to this headline">¶</a></h3>
+<p>We introduce a <code class="docutils literal notranslate"><span class="pre">duration</span></code> type to express timing.
+Durations are positive numbers with a unit of time. <code class="docutils literal notranslate"><span class="pre">ns,</span> <span class="pre">μs,</span> <span class="pre">ms,</span> <span class="pre">s</span></code> are used for SI time
 units. <code class="docutils literal notranslate"><span class="pre">dt</span></code> is a backend-dependent unit equivalent to one waveform sample on
-the backend. <code class="docutils literal notranslate"><span class="pre">lengthof()</span></code> is an intrinsic function used to reference the duration of
-another part of the program or the duration of a calibrated gate.</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">length</span> <span class="n">one_second</span> <span class="o">=</span> <span class="mi">1000</span><span class="n">ms</span><span class="p">;</span>
-<span class="n">length</span> <span class="n">thousand_cycles</span> <span class="o">=</span> <span class="mi">1000</span><span class="n">dt</span><span class="p">;</span>
+the backend. <code class="docutils literal notranslate"><span class="pre">durationof()</span></code> is an intrinsic function used to reference the duration of a calibrated gate.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">duration</span> <span class="n">one_second</span> <span class="o">=</span> <span class="mi">1000</span><span class="n">ms</span><span class="p">;</span>
+<span class="n">duration</span> <span class="n">thousand_cycles</span> <span class="o">=</span> <span class="mi">1000</span><span class="n">dt</span><span class="p">;</span>
+<span class="n">duration</span> <span class="n">c</span> <span class="o">=</span> <span class="n">durationof</span><span class="p">({</span><span class="n">x</span> <span class="n">$3</span><span class="p">);</span>
 </pre></div>
 </div>
-<p><code class="docutils literal notranslate"><span class="pre">length</span></code> is further discussed in <a class="reference internal" href="delays.html#length-and-stretch"><span class="std std-ref">length and stretch types</span></a></p>
+<p><code class="docutils literal notranslate"><span class="pre">duration</span></code> is further discussed in <a class="reference internal" href="delays.html#duration-and-stretch"><span class="std std-ref">Duration and stretch types</span></a></p>
 </section>
 <section id="stretch">
-<h3>stretch<a class="headerlink" href="#stretch" title="Permalink to this headline">¶</a></h3>
-<p>We further introduce a <code class="docutils literal notranslate"><span class="pre">stretch</span></code> type which is a sub-type of <code class="docutils literal notranslate"><span class="pre">length</span></code>. Stretchable lengths
-have variable non-negative length that is permitted to grow as necessary
+<h3>Stretch<a class="headerlink" href="#stretch" title="Permalink to this headline">¶</a></h3>
+<p>We further introduce a <code class="docutils literal notranslate"><span class="pre">stretch</span></code> type which is a sub-type of <code class="docutils literal notranslate"><span class="pre">duration</span></code>. <code class="docutils literal notranslate"><span class="pre">stretch</span></code> types
+have variable non-negative duration that is permitted to grow as necessary
 to satisfy constraints. Stretch variables are resolved at compile time
 into target-appropriate durations that satisfy a user’s specified design
-intent. We distinguish different “orders” of stretch via <code class="docutils literal notranslate"><span class="pre">stretchN</span></code> types, where N
-is an integer between 0 to 255. <code class="docutils literal notranslate"><span class="pre">stretch0</span></code> is an alias for the regular <code class="docutils literal notranslate"><span class="pre">stretch</span></code>. At the
-timing resolution stage of the compiler, higher order stretches will
-suppress lower order stretches whenever they appear in the same scope on
-the same qubits.</p>
-<p><code class="docutils literal notranslate"><span class="pre">stretch</span></code> is further discussed in <a class="reference internal" href="delays.html#length-and-stretch"><span class="std std-ref">length and stretch types</span></a></p>
+intent.</p>
+<p><code class="docutils literal notranslate"><span class="pre">stretch</span></code> is further discussed in <a class="reference internal" href="delays.html#duration-and-stretch"><span class="std std-ref">Duration and stretch types</span></a></p>
 </section>
 </section>
 <section id="aliasing">
@@ -393,6 +395,7 @@ variables whose values may only be known at run time.</p>
 <li class="toctree-l2"><a class="reference internal" href="classical.html">Classical instructions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="subroutines.html">Subroutines</a></li>
 <li class="toctree-l2"><a class="reference internal" href="directives.html">Directives</a></li>
+<li class="toctree-l2"><a class="reference internal" href="directives.html#input-output">Input/output</a></li>
 <li class="toctree-l2"><a class="reference internal" href="delays.html">Circuit timing</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pulses.html">Pulse-level descriptions of gates and measurement</a></li>
 </ul>
@@ -437,7 +440,7 @@ variables whose values may only be known at run time.</p>
       &copy;2017-2020, Andrew W. Cross, Lev S. Bishop, John A. Smolin, Jay M. Gambetta.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.0.2</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.0.3</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |

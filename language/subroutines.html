@@ -87,10 +87,10 @@ follows</p>
 </pre></div>
 </div>
 <p>We require that we know the signature at compile time, as we do in this
-example. We could also just as easily have used a kernel function for
+example. We could also just as easily have used an extern function for
 this</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">const</span> <span class="n">n</span> <span class="o">=</span> <span class="cm">/* size of c + size of c2 */</span><span class="p">;</span>
-<span class="n">kernel</span> <span class="nf">parity</span><span class="p">(</span><span class="n">bit</span><span class="p">[</span><span class="n">n</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">bit</span><span class="p">;</span>
+<span class="k">extern</span> <span class="n">parity</span><span class="p">(</span><span class="n">bit</span><span class="p">[</span><span class="n">n</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">bit</span><span class="p">;</span>
 <span class="n">qubit</span> <span class="n">q</span><span class="p">;</span>
 <span class="n">qubit</span> <span class="n">r</span><span class="p">;</span>
 <span class="n">c</span> <span class="o">=</span> <span class="n">measure</span> <span class="n">q</span><span class="p">;</span>
@@ -130,6 +130,7 @@ this</p>
 <li class="toctree-l2"><a class="reference internal" href="classical.html">Classical instructions</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Subroutines</a></li>
 <li class="toctree-l2"><a class="reference internal" href="directives.html">Directives</a></li>
+<li class="toctree-l2"><a class="reference internal" href="directives.html#input-output">Input/output</a></li>
 <li class="toctree-l2"><a class="reference internal" href="delays.html">Circuit timing</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pulses.html">Pulse-level descriptions of gates and measurement</a></li>
 </ul>
@@ -174,7 +175,7 @@ this</p>
       &copy;2017-2020, Andrew W. Cross, Lev S. Bishop, John A. Smolin, Jay M. Gambetta.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.0.2</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.0.3</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |

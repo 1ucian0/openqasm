@@ -47,10 +47,10 @@ implementation of gates at the pulse-level description. In other words,
 we want to provide the ability to capture <em>design intent</em> such as “space
 these gates evenly to implement a higher-order echo decoupling sequence”
 or “implement this gate as late as possible”.</p>
-<section id="length-and-stretch-types">
-<span id="length-and-stretch"></span><h2>length and stretch types<a class="headerlink" href="#length-and-stretch-types" title="Permalink to this headline">¶</a></h2>
-<p>The <code class="docutils literal notranslate"><span class="pre">length</span></code> type is used denote duration of time. Lengths are positive real numbers
-that are manipulated at compile time. Lengths must be followed by time units which can be
+<section id="duration-and-stretch-types">
+<span id="duration-and-stretch"></span><h2>Duration and stretch types<a class="headerlink" href="#duration-and-stretch-types" title="Permalink to this headline">¶</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">duration</span></code> type is used denote increments of time. Durations are positive real numbers
+that are manipulated at compile time. Durations must be followed by time units which can be
 any of the following:</p>
 <ul class="simple">
 <li><p>SI units of time: <code class="docutils literal notranslate"><span class="pre">ns,</span> <span class="pre">µs</span> <span class="pre">or</span> <span class="pre">us,</span> <span class="pre">ms,</span> <span class="pre">s</span></code></p></li>
@@ -63,27 +63,25 @@ separated only by blanks or tabs. <code class="docutils literal notranslate"><sp
 circuit. For example, we may want to delay a gate for twice the duration
 of a particular sub-circuit, without knowing the exact value to which
 that duration will resolve. Alternatively, we may want to calibrate a
-gate using some pulses, and use its duration as a new <code class="docutils literal notranslate"><span class="pre">length</span></code> in order to delay
-other parts of the circuit. The <code class="docutils literal notranslate"><span class="pre">lengthof()</span></code> intrinsic function can be used for this
+gate using some pulses, and use its duration as a new <code class="docutils literal notranslate"><span class="pre">duration</span></code> in order to delay
+other parts of the circuit. The <code class="docutils literal notranslate"><span class="pre">durationof()</span></code> intrinsic function can be used for this
 type of referential timing.</p>
-<p>Below are some examples of values of type <code class="docutils literal notranslate"><span class="pre">length</span></code>.</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="c1">// fixed length, in standard units</span>
-<span class="n">length</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">300</span><span class="n">ns</span><span class="p">;</span>
-<span class="c1">// fixed length, backend dependent</span>
-<span class="n">length</span> <span class="n">b</span> <span class="o">=</span> <span class="mi">800</span><span class="n">dt</span><span class="p">;</span>
-<span class="c1">// fixed length, referencing the duration of a calibrated gate</span>
-<span class="n">length</span> <span class="n">c</span> <span class="o">=</span> <span class="n">lengthof</span><span class="p">(</span><span class="n">defcal</span><span class="p">);</span>
-<span class="c1">// dynamic length, referencing a box within its context</span>
-<span class="n">length</span> <span class="n">d</span> <span class="o">=</span> <span class="n">lengthof</span><span class="p">(</span><span class="n">box</span><span class="p">);</span>
+<p>Below are some examples of values of type <code class="docutils literal notranslate"><span class="pre">duration</span></code>.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="c1">// fixed duration, in standard units</span>
+<span class="n">duration</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">300</span><span class="n">ns</span><span class="p">;</span>
+<span class="c1">// fixed duration, backend dependent</span>
+<span class="n">duration</span> <span class="n">b</span> <span class="o">=</span> <span class="mi">800</span><span class="n">dt</span><span class="p">;</span>
+<span class="c1">// fixed duration, referencing the duration of a calibrated gate</span>
+<span class="n">duration</span> <span class="n">c</span> <span class="o">=</span> <span class="n">durationof</span><span class="p">({</span><span class="n">x</span> <span class="n">$3</span><span class="p">);</span>
 </pre></div>
 </div>
-<p>We further introduce a <code class="docutils literal notranslate"><span class="pre">stretch</span></code> type which is a sub-type of <code class="docutils literal notranslate"><span class="pre">length</span></code>. Stretchable lengths
-have variable non-negative length that is permitted to grow as necessary
+<p>We further introduce a <code class="docutils literal notranslate"><span class="pre">stretch</span></code> type which is a sub-type of <code class="docutils literal notranslate"><span class="pre">duration</span></code>. Stretchable durations
+have variable non-negative duration that are permitted to grow as necessary
 to satisfy constraints. Stretch variables are resolved at compile time
 into target-appropriate durations that satisfy a user’s specified design
 intent.</p>
-<p>Instructions whose duration is specified in this way become “stretchy”,
-meaning they can extend beyond their “natural length” to fill a span of
+<p>Instructions whose duration are specified in this way become “stretchy”,
+meaning they can extend beyond their “natural duration” to fill a span of
 time. Stretchy <code class="docutils literal notranslate"><span class="pre">delay</span></code>’s are the most obvious use case, but this can be extended
 to other instructions too, e.g. rotating a spectator qubit while another
 gate is in progress. Similarly, a <code class="docutils literal notranslate"><span class="pre">gate</span></code> whose definition contains stretchy
@@ -117,9 +115,10 @@ whatever their actual durations may be, we can do the following:</p>
 <span class="n">cx</span> <span class="n">q</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">q</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
 <span class="n">U</span><span class="p">(</span><span class="n">pi</span><span class="o">/</span><span class="mi">4</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">pi</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span> <span class="n">q</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span>
 <span class="n">cx</span> <span class="n">q</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">q</span><span class="p">[</span><span class="mi">4</span><span class="p">];</span>
-<span class="n">delay</span><span class="p">[</span><span class="n">stretchinf</span><span class="p">]</span> <span class="n">q</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">q</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
-<span class="n">delay</span><span class="p">[</span><span class="n">stretchinf</span><span class="p">]</span> <span class="n">q</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span>
-<span class="n">delay</span><span class="p">[</span><span class="n">stretchinf</span><span class="p">]</span> <span class="n">q</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">q</span><span class="p">[</span><span class="mi">4</span><span class="p">];</span>
+<span class="n">stretch</span> <span class="n">s</span><span class="p">;</span>
+<span class="n">delay</span><span class="p">[</span><span class="n">s</span><span class="p">]</span> <span class="n">q</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">q</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
+<span class="n">delay</span><span class="p">[</span><span class="n">s</span><span class="p">]</span> <span class="n">q</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span>
+<span class="n">delay</span><span class="p">[</span><span class="n">s</span><span class="p">]</span> <span class="n">q</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">q</span><span class="p">[</span><span class="mi">4</span><span class="p">];</span>
 <span class="n">barrier</span> <span class="n">q</span><span class="p">;</span>
 </pre></div>
 </div>
@@ -135,61 +134,42 @@ the stretchy delays (<a class="reference internal" href="#fig-alignment"><span c
 <span class="n">barrier</span> <span class="n">q</span><span class="p">;</span>
 </pre></div>
 </div>
-<p>Lastly, we distinguish different “orders” of stretch via <code class="docutils literal notranslate"><span class="pre">stretchN</span></code> types, where N
-is an integer between 0 to 255. <code class="docutils literal notranslate"><span class="pre">stretch0</span></code> is an alias for the regular <code class="docutils literal notranslate"><span class="pre">stretch</span></code>. Higher
-order stretches will suppress lower order stretches whenever they appear
-in the same scope on the same qubits. A <code class="docutils literal notranslate"><span class="pre">stretchinf</span></code> keyword is defined as an
-infinitely stretchable length. It will always take precedence, and will
-not changed if arithmetic operations are done on it. This is most useful
-as a “don’t care” mechanism to specify delays that will just fill
-whatever gap is present.</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="c1">// stretchable length, with min=0 and max=inf</span>
-<span class="n">stretch</span> <span class="n">e</span><span class="p">;</span>
-<span class="n">delay</span><span class="p">[</span><span class="n">e</span><span class="p">];</span>
-<span class="c1">// higher-order stretch which always mutes lower-order stretch</span>
-<span class="n">stretch2</span> <span class="n">f</span><span class="p">;</span>
-<span class="n">delay</span><span class="p">[</span><span class="mi">2</span><span class="o">*</span><span class="n">f</span><span class="p">];</span>
-<span class="c1">// infinitely stretchable length, always anonymous.</span>
-<span class="c1">// other instruction don&#39;t care about the value to which this resolves.</span>
-<span class="n">delay</span><span class="p">[</span><span class="n">stretchinf</span><span class="p">];</span>
-</pre></div>
-</div>
-<p>The concepts of <code class="docutils literal notranslate"><span class="pre">box</span></code> and <code class="docutils literal notranslate"><span class="pre">stretch</span></code> are inspired by the concept of “boxes and glues” in
-the TeX language <span class="bibtex" id="id1">[knuth1984texbook]</span>. This similarity
+<p>The concepts of <code class="docutils literal notranslate"><span class="pre">box</span></code> (see <span class="xref std std-ref">Boxed expressions</span>) and <code class="docutils literal notranslate"><span class="pre">stretch</span></code> are inspired by the
+concept of “boxes and glues” in the TeX language <span class="bibtex" id="id1">[knuth1984texbook]</span>. This similarity
 is natural; TeX aims to resolve the spacing between characters in order
 to typeset a page, and the size of characters depend on the backend
 font. In OpenQASM we intend to resolve the timing of different
 instructions in order to meet high-level design intents, while the true
-length of operations depend on the backend and compilation context.
+duration of operations depend on the backend and compilation context.
 There are however some key differences. Quantum operations can be
-non-local, meaning the lengths set on one qubit can have side effects on
-other qubits. The definition of <code class="docutils literal notranslate"><span class="pre">length</span></code>-type variables and ability to define
+non-local, meaning the durations set on one qubit can have side effects on
+other qubits. The definition of <code class="docutils literal notranslate"><span class="pre">duration</span></code>-type variables and ability to define
 multi-qubit stretches is intended to alleviate potential problems from
 these side effects. Also contrary to TeX, we prohibit overlapping gates.</p>
 </section>
-<section id="operations-on-lengths">
-<h2>Operations on lengths<a class="headerlink" href="#operations-on-lengths" title="Permalink to this headline">¶</a></h2>
-<p>We can add two lengths, or multiply them by a constant, to get new
-lengths. These are compile time operations since ultimately all lengths,
-including stretches, will be resolved to constants.</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">length</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">300</span><span class="n">ns</span><span class="p">;</span>
-<span class="n">length</span> <span class="n">b</span> <span class="o">=</span> <span class="n">lengthof</span><span class="p">({</span><span class="n">x</span> <span class="n">$0</span><span class="p">});</span>
+<section id="operations-on-durations">
+<h2>Operations on durations<a class="headerlink" href="#operations-on-durations" title="Permalink to this headline">¶</a></h2>
+<p>We can add/subtract two durations, or multiply them by a constant, to get new
+duration. The result must be positive. These are compile time operations since ultimately all
+durations, including stretches, will be resolved to constants.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">duration</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">300</span><span class="n">ns</span><span class="p">;</span>
+<span class="n">duration</span> <span class="n">b</span> <span class="o">=</span> <span class="n">durationof</span><span class="p">({</span><span class="n">x</span> <span class="n">$0</span><span class="p">});</span>
 <span class="n">stretch</span> <span class="n">c</span><span class="p">;</span>
-<span class="c1">// stretchy length with min=300ns</span>
-<span class="n">length</span> <span class="n">d</span> <span class="o">=</span> <span class="n">a</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">c</span><span class="p">;</span>
-<span class="c1">// stretchy length with backtracking by up to half b</span>
-<span class="n">length</span> <span class="n">e</span> <span class="o">=</span> <span class="mf">-0.5</span> <span class="o">*</span> <span class="n">b</span> <span class="o">+</span> <span class="n">c</span><span class="p">;</span>
+<span class="c1">// stretchy duration with min=300ns</span>
+<span class="n">stretch</span> <span class="n">d</span> <span class="o">=</span> <span class="n">a</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">c</span><span class="p">;</span>
+<span class="c1">// stretchy duration with backtracking by up to half b</span>
+<span class="n">stretch</span> <span class="n">e</span> <span class="o">=</span> <span class="mf">-0.5</span> <span class="o">*</span> <span class="n">b</span> <span class="o">+</span> <span class="n">c</span><span class="p">;</span>
 </pre></div>
 </div>
 </section>
-<section id="delays-and-other-lengthened-instructions">
-<h2>Delays (and other lengthened instructions)<a class="headerlink" href="#delays-and-other-lengthened-instructions" title="Permalink to this headline">¶</a></h2>
+<section id="delays-and-other-duration-based-instructions">
+<h2>Delays (and other duration-based instructions)<a class="headerlink" href="#delays-and-other-duration-based-instructions" title="Permalink to this headline">¶</a></h2>
 <p>OpenQASM and OpenPulse have a <code class="docutils literal notranslate"><span class="pre">delay</span></code> instruction, whose duration is defined by
-a <code class="docutils literal notranslate"><span class="pre">length</span></code>. If the length passed to the delay contains stretch, it will become a
-stretchy delay. We use square bracket notation to pass these length
+a <code class="docutils literal notranslate"><span class="pre">duration</span></code>. If the duration passed to the delay contains stretch, it will become a
+stretchy delay. We use square bracket notation to pass these duration
 parameters, to distinguish them from regular parameters (the compiler
-will resolve these square-bracket parameters when resolving timing ).</p>
-<p>Even though a <code class="docutils literal notranslate"><span class="pre">delay</span></code> instruction implements the identity channel in the ideal
+will resolve these square-bracket parameters when resolving timing).</p>
+<p>Even though a <code class="docutils literal notranslate"><span class="pre">delay</span></code> instruction implements the identity operator in the ideal
 case, it is intended to provide explicit timing. Therefore an explicit <code class="docutils literal notranslate"><span class="pre">delay</span></code>
 instruction will prevent commutation of gates that would otherwise
 commute. For example in
@@ -218,10 +198,10 @@ b</p>
 is not part of the circuit description. Thus this circuit does not care about
 timing and the <span class="math notranslate nohighlight">\(RZ\)</span> gate is free to commute on the top wire. b) An explicit
 delay is part of the circuit description. The timing is consistent and can
-be resolved if and only if this delay is exactly the same length as <span class="math notranslate nohighlight">\(RY\)</span> on
+be resolved if and only if this delay is exactly the same duration as <span class="math notranslate nohighlight">\(RY\)</span> on
 <span class="math notranslate nohighlight">\([1]\)</span>. The delay is like a barrier in that it prevents commutation on that
 wire. However <span class="math notranslate nohighlight">\(RZ\)</span> can still commute before the <span class="math notranslate nohighlight">\(CNOT\)</span> if it has
-length <span class="math notranslate nohighlight">\(0\)</span>.</span><a class="headerlink" href="#id3" title="Permalink to this image">¶</a></p>
+duration <span class="math notranslate nohighlight">\(0\)</span>.</span><a class="headerlink" href="#id3" title="Permalink to this image">¶</a></p>
 </figcaption>
 </figure>
 <figure class="align-default" id="id4">
@@ -244,7 +224,7 @@ b</p>
 rotary gates are stretchy, and the design intent is to interleave a “winding”
 and “unwinding” that is equal to the total duration of the CNOT. We do this
 without knowledge of the CNOT duration, and the compiler resolves them to the
-correct length during lowering to the target backend.</span><a class="headerlink" href="#id4" title="Permalink to this image">¶</a></p>
+correct duration during lowering to the target backend.</span><a class="headerlink" href="#id4" title="Permalink to this image">¶</a></p>
 </figcaption>
 </figure>
 <figure class="align-default" id="id5">
@@ -255,16 +235,16 @@ correct length during lowering to the target backend.</span><a class="headerlink
 <figcaption>
 <p><span class="caption-number">Fig. 9 </span><span class="caption-text">Dynamical decoupling of a spectator qubit using finite-duration DD pulses.
 The boxes are intentionally drawn to scale to give a sense of how finite gate
-lengths affect circuit timing. This design intent can be expressed by
+durations affect circuit timing. This design intent can be expressed by
 defining a single stretch variable “equal” that corresponds to the distance
-between equidistant gate centers. The other lengths which correspond to
-actual circuit delays are derived by simple arithmetic on lengths. Given a
+between equidistant gate centers. The other durations which correspond to
+actual circuit delays are derived by simple arithmetic. Given a
 target system with calibrated X and Y gates, the solution to the stretch
 problem can be found.</span><a class="headerlink" href="#id5" title="Permalink to this image">¶</a></p>
 </figcaption>
 </figure>
 <p>Instructions other than delay can also have variable duration, if they
-are explicitly defined as such. They can be called by passing a valid <code class="docutils literal notranslate"><span class="pre">length</span></code> as
+are explicitly defined as such. They can be called by passing a valid <code class="docutils literal notranslate"><span class="pre">duration</span></code> as
 their duration. Consider for example a rotation called <code class="docutils literal notranslate"><span class="pre">rotary</span></code> that is applied
 for the entire duration of some other gate.</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">const</span> <span class="n">amp</span> <span class="o">=</span> <span class="cm">/* number */</span><span class="p">;</span>
@@ -276,27 +256,25 @@ for the entire duration of some other gate.</p>
 <p>A multi-qubit <code class="docutils literal notranslate"><span class="pre">delay</span></code> instruction is <em>not</em> equivalent to multiple single-qubit
 <code class="docutils literal notranslate"><span class="pre">delay</span></code> instructions. Instead a multi-qubit delay acts as a synchronization
 point on the qubits, where the delay begins from the latest non-idle
-time across all qubits, and ends simultaneously across all qubits. For
-this reason, a <code class="docutils literal notranslate"><span class="pre">barrier</span></code> instruction is exactly equivalent to a <code class="docutils literal notranslate"><span class="pre">delay</span></code> of a length zero
-on the qubits involved.</p>
+time across all qubits, and ends simultaneously across all qubits.</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">cx</span> <span class="n">q</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">q</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
 <span class="n">cx</span> <span class="n">q</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">q</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span>
 <span class="c1">// delay for 200 samples starting from the end of the longest cx</span>
 <span class="n">delay</span><span class="p">[</span><span class="mi">200</span><span class="n">dt</span><span class="p">]</span> <span class="n">q</span><span class="p">[</span><span class="mi">0</span><span class="o">:</span><span class="mi">3</span><span class="p">];</span>
 </pre></div>
 </div>
-<p>A <code class="docutils literal notranslate"><span class="pre">length</span></code> can be composed of positive or negative natural length, and of
-positive stretch. After resolving the stretch, the instruction must end
+<p>A <code class="docutils literal notranslate"><span class="pre">duration</span></code> can be composed of positive or negative durations, and of
+positive stretches. After resolving the stretches, the instruction must end
 up with non-negative duration.</p>
 <p>For example, the code below inserts a dynamical decoupling sequence
 where the *centers* of pulses are equidistant from each other. We
-specify correct lengths for the delays by using backtracking operations
-to properly take into account the finite length of each gate.</p>
+specify correct durations for the delays by using backtracking operations
+to properly take into account the finite duration of each gate.</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">stretch</span> <span class="n">s</span><span class="p">;</span>
 <span class="n">stretch</span> <span class="n">t</span><span class="p">;</span>
-<span class="n">length</span> <span class="n">start_stretch</span> <span class="o">=</span> <span class="n">s</span> <span class="o">-</span> <span class="mf">.5</span> <span class="o">*</span> <span class="n">lengthof</span><span class="p">({</span><span class="n">x</span> <span class="n">$0</span><span class="p">;})</span>
-<span class="n">length</span> <span class="n">middle_stretch</span> <span class="o">=</span> <span class="n">s</span> <span class="o">-</span> <span class="mf">.5</span> <span class="o">*</span> <span class="n">lengthof</span><span class="p">({</span><span class="n">x</span> <span class="n">$0</span><span class="p">;})</span> <span class="o">-</span> <span class="mf">.5</span> <span class="o">*</span> <span class="n">lengthof</span><span class="p">({</span><span class="n">y</span> <span class="n">$0</span><span class="p">;}</span>
-<span class="n">length</span> <span class="n">end_stretch</span> <span class="o">=</span> <span class="n">s</span> <span class="o">-</span> <span class="mf">.5</span> <span class="o">*</span> <span class="n">lengthof</span><span class="p">({</span><span class="n">y</span> <span class="n">$0</span><span class="p">;})</span>
+<span class="n">duration</span> <span class="n">start_stretch</span> <span class="o">=</span> <span class="n">s</span> <span class="o">-</span> <span class="mf">.5</span> <span class="o">*</span> <span class="n">durationof</span><span class="p">({</span><span class="n">x</span> <span class="n">$0</span><span class="p">;})</span>
+<span class="n">duration</span> <span class="n">middle_stretch</span> <span class="o">=</span> <span class="n">s</span> <span class="o">-</span> <span class="mf">.5</span> <span class="o">*</span> <span class="n">duration0</span><span class="p">({</span><span class="n">x</span> <span class="n">$0</span><span class="p">;})</span> <span class="o">-</span> <span class="mf">.5</span> <span class="o">*</span> <span class="n">durationof</span><span class="p">({</span><span class="n">y</span> <span class="n">$0</span><span class="p">;}</span>
+<span class="n">duration</span> <span class="n">end_stretch</span> <span class="o">=</span> <span class="n">s</span> <span class="o">-</span> <span class="mf">.5</span> <span class="o">*</span> <span class="n">durationof</span><span class="p">({</span><span class="n">y</span> <span class="n">$0</span><span class="p">;})</span>
 
 <span class="n">delay</span><span class="p">[</span><span class="n">start_stretch</span><span class="p">]</span> <span class="n">$0</span><span class="p">;</span>
 <span class="n">x</span> <span class="n">$0</span><span class="p">;</span>
@@ -325,33 +303,40 @@ can be optimized too, e.g. it is permissible to commute a gate past a
 box by knowing the unitary implemented by the box. Delays that are
 within a box are implementation details of the box; they are invisible
 to the outside scope and therefore do not prevent commutation.</p>
-<p>We introduce a <code class="docutils literal notranslate"><span class="pre">boxas</span></code> expression for labeling a box. We primarily use this to
-later refer to the length of this box. Boxed expressions are good for
-this because their contents are isolated and cannot be combined with
-gates outside the box. Therefore, no matter how the contents of the box
-get optimized, the <code class="docutils literal notranslate"><span class="pre">lengthof(boxlabel</span></code> has a well-defined meaning.</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">boxas</span> <span class="n">mybox</span> <span class="p">{</span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span>rx(5*π/12) q;
+box {
+  delay[ddt] q;
+  x q;
+  delay[ddt] q;
+  x q;
+  delay[ddt] q;
+}
+</pre></div>
+</div>
+<p>Boxes can take an optional bracketed duration argument to enforce the
+timing of the <code class="docutils literal notranslate"><span class="pre">box</span></code>. This is useful in scenarios where the duration of
+A given code block is not apparent prior to runtime, but where assigning
+an explicit duration makes sense in terms of scheduling for the larger circuit.
+The natural duration of the box must be smaller than the declared duration,
+otherwise a compile-time error will be raised. A <code class="docutils literal notranslate"><span class="pre">stretch</span></code> inside the
+<code class="docutils literal notranslate"><span class="pre">box</span></code> will always be set to fill the difference between the declared
+duration and the natural duration.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="c1">// defines a 1ms box whose content is just a centered CNOT</span>
+<span class="n">box</span> <span class="p">[</span><span class="mi">1</span><span class="n">ms</span><span class="p">]</span> <span class="p">{</span>
+  <span class="n">stretch</span> <span class="n">a</span><span class="p">;</span>
+  <span class="n">delay</span><span class="p">[</span><span class="n">a</span><span class="p">]</span> <span class="n">q</span><span class="p">;</span>
+  <span class="n">cx</span> <span class="n">q</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">q</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
+  <span class="n">delay</span><span class="p">[</span><span class="n">a</span><span class="p">]</span> <span class="n">q</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">// defines a stretchy box sub-circuit and later delays for that entire duration</span>
+<span class="n">stretch</span> <span class="n">mybox_dur</span><span class="p">;</span>
+<span class="n">box</span> <span class="p">[</span><span class="n">mybox_dur</span><span class="p">]</span> <span class="p">{</span>
     <span class="n">cx</span> <span class="n">q</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">q</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
     <span class="n">delay</span><span class="p">[</span><span class="mi">200</span><span class="n">ns</span><span class="p">]</span> <span class="n">q</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
 <span class="p">}</span>
-<span class="n">delay</span><span class="p">[</span><span class="n">length</span><span class="p">(</span><span class="n">mybox</span><span class="p">)]</span> <span class="n">q</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">q</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span>
+<span class="n">delay</span><span class="p">[</span><span class="n">mybox_dur</span><span class="p">]</span> <span class="n">q</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">q</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span>
 <span class="n">cx</span> <span class="n">q</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">q</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span>
-</pre></div>
-</div>
-<p>We introduce a <code class="docutils literal notranslate"><span class="pre">boxto</span></code> expression. The contents of it will be boxed, and in
-addition a total duration will be assigned to the box. This is useful
-for conditionals where the box will declare a hard deadline. The natural
-length of the box must be smaller than the declared boxto duration,
-otherwise a compile-time error will be raised. The stretch inside the
-box will always be set to fill the difference between the declared
-length and the natural length.</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="c1">// defines a 1ms box whose content is just a centered CNOT</span>
- <span class="n">boxto</span> <span class="mi">1</span><span class="n">ms</span> <span class="p">{</span>
-     <span class="n">stretch</span> <span class="n">a</span><span class="p">;</span>
-     <span class="n">delay</span><span class="p">[</span><span class="n">a</span><span class="p">]</span> <span class="n">q</span><span class="p">;</span>
-     <span class="n">cx</span> <span class="n">q</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">q</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
-     <span class="n">delay</span><span class="p">[</span><span class="n">a</span><span class="p">]</span> <span class="n">q</span><span class="p">;</span>
- <span class="p">}</span>
 </pre></div>
 </div>
 </section>
@@ -372,6 +357,11 @@ in the following example</p>
 <p>This will prevent an attempt to combine the CNOT gates but will not
 constrain the pair of <code class="docutils literal notranslate"><span class="pre">h</span> <span class="pre">s[0];</span></code> gates, which might be executed before or after the
 barrier, or cancelled by a compiler.</p>
+<p>A <code class="docutils literal notranslate"><span class="pre">barrier</span></code> is similar to <code class="docutils literal notranslate"><span class="pre">delay[0]</span></code>. The main difference is that <code class="docutils literal notranslate"><span class="pre">delay</span></code> indicates a fully
+scheduled series of instructions, whereas <code class="docutils literal notranslate"><span class="pre">barrier</span></code> implies an ordering constraint that will be
+resolved by the compiler at a later stage.</p>
+<p>A barrier can also be invoked without arguments, in which case the argument is assumed to be all
+qubits.</p>
 </section>
 </section>
 
@@ -404,10 +394,11 @@ barrier, or cancelled by a compiler.</p>
 <li class="toctree-l2"><a class="reference internal" href="classical.html">Classical instructions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="subroutines.html">Subroutines</a></li>
 <li class="toctree-l2"><a class="reference internal" href="directives.html">Directives</a></li>
+<li class="toctree-l2"><a class="reference internal" href="directives.html#input-output">Input/output</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Circuit timing</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#length-and-stretch-types">length and stretch types</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#operations-on-lengths">Operations on lengths</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#delays-and-other-lengthened-instructions">Delays (and other lengthened instructions)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#duration-and-stretch-types">Duration and stretch types</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#operations-on-durations">Operations on durations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#delays-and-other-duration-based-instructions">Delays (and other duration-based instructions)</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#boxed-expressions">Boxed expressions</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#barrier-instruction">Barrier instruction</a></li>
 </ul>
@@ -455,7 +446,7 @@ barrier, or cancelled by a compiler.</p>
       &copy;2017-2020, Andrew W. Cross, Lev S. Bishop, John A. Smolin, Jay M. Gambetta.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.0.2</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.0.3</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |
