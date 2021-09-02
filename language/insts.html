@@ -44,8 +44,8 @@
 (i.e. discarding them) before replacing them with
 <span class="math notranslate nohighlight">\(|0\rangle\langle 0|\)</span>. Reset is shown in <a class="reference internal" href="#fig-prepare"><span class="std std-numref">Fig. 4</span></a>.</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="c1">// Initialize and reset a register of 10 qubits</span>
-<span class="n">qubit</span><span class="p">[</span><span class="mi">10</span><span class="p">]</span> <span class="n">qubits</span><span class="p">;</span>
-<span class="n">reset</span> <span class="n">qubits</span><span class="p">;</span>
+<span class="n">qubit</span><span class="p">[</span><span class="mi">10</span><span class="p">]</span><span class="w"> </span><span class="n">qubits</span><span class="p">;</span><span class="w"></span>
+<span class="n">reset</span><span class="w"> </span><span class="n">qubits</span><span class="p">;</span><span class="w"></span>
 </pre></div>
 </div>
 <figure class="align-default" id="id1">
@@ -74,10 +74,10 @@ arguments are register-type and have the same size, the statement  <code class="
 broadcasts to <code class="docutils literal notranslate"><span class="pre">b[j]</span> <span class="pre">=</span> <span class="pre">measure</span> <span class="pre">a[j];</span></code> for each index <code class="docutils literal notranslate"><span class="pre">j</span></code> into register <code class="docutils literal notranslate"><span class="pre">a</span></code>. Measurement is shown in
 <a class="reference internal" href="#fig-measure"><span class="std std-numref">Fig. 5</span></a>.</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="c1">// Initialize, flip and measure a register of 10 qubits</span>
-<span class="n">qubit</span><span class="p">[</span><span class="mi">10</span><span class="p">]</span> <span class="n">qubits</span><span class="p">;</span>
-<span class="n">bit</span><span class="p">[</span><span class="mi">10</span><span class="p">]</span> <span class="n">bits</span><span class="p">;</span>
-<span class="n">x</span> <span class="n">qubits</span><span class="p">;</span>
-<span class="n">bits</span> <span class="o">=</span> <span class="n">measure</span> <span class="n">qubits</span><span class="p">;</span>
+<span class="n">qubit</span><span class="p">[</span><span class="mi">10</span><span class="p">]</span><span class="w"> </span><span class="n">qubits</span><span class="p">;</span><span class="w"></span>
+<span class="n">bit</span><span class="p">[</span><span class="mi">10</span><span class="p">]</span><span class="w"> </span><span class="n">bits</span><span class="p">;</span><span class="w"></span>
+<span class="n">x</span><span class="w"> </span><span class="n">qubits</span><span class="p">;</span><span class="w"></span>
+<span class="n">bits</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">measure</span><span class="w"> </span><span class="n">qubits</span><span class="p">;</span><span class="w"></span>
 </pre></div>
 </div>
 <figure class="align-default" id="id2">
@@ -163,7 +163,7 @@ final operation on <code class="docutils literal notranslate"><span class="pre">
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
       <input type="submit" value="Go" />
     </form>
     </div>
@@ -185,7 +185,7 @@ final operation on <code class="docutils literal notranslate"><span class="pre">
       &copy;2017-2020, Andrew W. Cross, Lev S. Bishop, John A. Smolin, Jay M. Gambetta.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.0.3</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.1.2</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |

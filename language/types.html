@@ -49,16 +49,16 @@ initialized is undefined. Classical types can be mutually cast to one another us
 <p>Declaration and initialization must be done one variable at a time for both quantum and classical
 types. Comma seperated declaration/initialization (<code class="docutils literal notranslate"><span class="pre">int</span> <span class="pre">x,</span> <span class="pre">y,</span> <span class="pre">z</span></code>) is NOT allowed for any type. For
 example, to declare a set of qubits one must do</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">qubit</span> <span class="n">q0</span><span class="p">;</span>
-<span class="n">qubit</span> <span class="n">q1</span><span class="p">;</span>
-<span class="n">qubit</span> <span class="n">q2</span><span class="p">;</span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">qubit</span><span class="w"> </span><span class="n">q0</span><span class="p">;</span><span class="w"></span>
+<span class="n">qubit</span><span class="w"> </span><span class="n">q1</span><span class="p">;</span><span class="w"></span>
+<span class="n">qubit</span><span class="w"> </span><span class="n">q2</span><span class="p">;</span><span class="w"></span>
 </pre></div>
 </div>
 <p>and to declare a set of classical variables</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="p">[</span><span class="mi">32</span><span class="p">]</span> <span class="n">x</span><span class="p">;</span>
-<span class="kt">float</span><span class="p">[</span><span class="mi">32</span><span class="p">]</span> <span class="n">y</span> <span class="o">=</span> <span class="mf">5.5</span><span class="p">;</span>
-<span class="n">bit</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="n">c</span><span class="p">;</span>
-<span class="kt">bool</span> <span class="n">my_bool</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="p">[</span><span class="mi">32</span><span class="p">]</span><span class="w"> </span><span class="n">x</span><span class="p">;</span><span class="w"></span>
+<span class="kt">float</span><span class="p">[</span><span class="mi">32</span><span class="p">]</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">5.5</span><span class="p">;</span><span class="w"></span>
+<span class="n">bit</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="w"> </span><span class="n">c</span><span class="p">;</span><span class="w"></span>
+<span class="kt">bool</span><span class="w"> </span><span class="n">my_bool</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span><span class="w"></span>
 </pre></div>
 </div>
 <p>We use the notation <code class="docutils literal notranslate"><span class="pre">s:m:f</span></code> to denote the width and precision of fixed point numbers,
@@ -100,15 +100,15 @@ the quantum memory.</p>
 by the syntax <code class="docutils literal notranslate"><span class="pre">$[NUM]</span></code>. For an <code class="docutils literal notranslate"><span class="pre">n</span></code> qubit system, we have physical qubit
 references given by <code class="docutils literal notranslate"><span class="pre">$0</span></code>, <code class="docutils literal notranslate"><span class="pre">$1</span></code>, …, <code class="docutils literal notranslate"><span class="pre">$n-1</span></code>. These qubit types are
 used in lower parts of the compilation stack when emitting physical
-circuits.</p>
+circuits. Physical qubits must not be declared and they are, as all the qubits, global variables.</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="c1">// Declare a qubit</span>
-<span class="n">qubit</span> <span class="n">gamma</span><span class="p">;</span>
+<span class="n">qubit</span><span class="w"> </span><span class="n">gamma</span><span class="p">;</span><span class="w"></span>
 <span class="c1">// Declare a qubit with a Unicode name</span>
-<span class="n">qubit</span> <span class="err">γ</span><span class="p">;</span>
+<span class="n">qubit</span><span class="w"> </span><span class="err">γ</span><span class="p">;</span><span class="w"></span>
 <span class="c1">// Declare a qubit register with 20 qubits</span>
-<span class="n">qubit</span><span class="p">[</span><span class="mi">20</span><span class="p">]</span> <span class="n">qubit_array</span><span class="p">;</span>
+<span class="n">qubit</span><span class="p">[</span><span class="mi">20</span><span class="p">]</span><span class="w"> </span><span class="n">qubit_array</span><span class="p">;</span><span class="w"></span>
 <span class="c1">// CNOT gate between physical qubits 0 and 1</span>
-<span class="n">CX</span> <span class="n">$0</span><span class="p">,</span> <span class="n">$1</span><span class="p">;</span>
+<span class="n">CX</span><span class="w"> </span><span class="n">$0</span><span class="p">,</span><span class="w"> </span><span class="n">$1</span><span class="p">;</span><span class="w"></span>
 </pre></div>
 </div>
 </section>
@@ -131,9 +131,9 @@ register. It is interpreted to assign each bit of the register to
 corresponding value 0 or 1 in the string, where the least-significant
 bit is on the right.</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="c1">// Declare a register of 20 bits</span>
-<span class="n">bit</span><span class="p">[</span><span class="mi">20</span><span class="p">]</span> <span class="n">bit_array</span><span class="p">;</span>
+<span class="n">bit</span><span class="p">[</span><span class="mi">20</span><span class="p">]</span><span class="w"> </span><span class="n">bit_array</span><span class="p">;</span><span class="w"></span>
 <span class="c1">// Declare and assign a rgister of bits with decimal value of 15</span>
-<span class="n">bit</span><span class="p">[</span><span class="mi">8</span><span class="p">]</span> <span class="n">name</span> <span class="o">=</span> <span class="s">&quot;00001111&quot;</span><span class="p">;</span>
+<span class="n">bit</span><span class="p">[</span><span class="mi">8</span><span class="p">]</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;00001111&quot;</span><span class="p">;</span><span class="w"></span>
 </pre></div>
 </div>
 </section>
@@ -151,10 +151,10 @@ conversion will be done assuming little-endian bit ordering. The example
 below demonstrates how to declare, assign and cast integer types amongst
 one another.</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="c1">// Declare a 32-bit unsigned integer</span>
-<span class="n">uint</span><span class="p">[</span><span class="mi">32</span><span class="p">]</span> <span class="n">my_uint</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
+<span class="n">uint</span><span class="p">[</span><span class="mi">32</span><span class="p">]</span><span class="w"> </span><span class="n">my_uint</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">10</span><span class="p">;</span><span class="w"></span>
 <span class="c1">// Declare a 16 bit signed integer</span>
-<span class="kt">int</span><span class="p">[</span><span class="mi">16</span><span class="p">]</span> <span class="n">my_int</span><span class="p">;</span>
-<span class="n">my_int</span> <span class="o">=</span> <span class="kt">int</span><span class="p">[</span><span class="mi">16</span><span class="p">](</span><span class="n">my_uint</span><span class="p">);</span>
+<span class="kt">int</span><span class="p">[</span><span class="mi">16</span><span class="p">]</span><span class="w"> </span><span class="n">my_int</span><span class="p">;</span><span class="w"></span>
+<span class="n">my_int</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kt">int</span><span class="p">[</span><span class="mi">16</span><span class="p">](</span><span class="n">my_uint</span><span class="p">);</span><span class="w"></span>
 </pre></div>
 </div>
 </section>
@@ -166,7 +166,7 @@ sign bit. The statement <code class="docutils literal notranslate"><span class="
 <span class="c1">// The number is signed, has 7 integer bits</span>
 <span class="c1">// and 24 fractional bits. The decimal number</span>
 <span class="c1">// assignment is implicitly cast.</span>
-<span class="n">fixed</span><span class="p">[</span><span class="mi">7</span><span class="p">,</span> <span class="mi">24</span><span class="p">]</span> <span class="n">my_fixed</span> <span class="o">=</span> <span class="mf">-7.0625</span><span class="p">;</span>
+<span class="n">fixed</span><span class="p">[</span><span class="mi">7</span><span class="p">,</span><span class="w"> </span><span class="mi">24</span><span class="p">]</span><span class="w"> </span><span class="n">my_fixed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">-7.0625</span><span class="p">;</span><span class="w"></span>
 </pre></div>
 </div>
 </section>
@@ -176,7 +176,7 @@ sign bit. The statement <code class="docutils literal notranslate"><span class="
 indicate a standard double-precision float. Note that some hardware
 vendors may not support manipulating these values at run-time.</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="c1">// Declare a single-precision 32-bit float</span>
-<span class="kt">float</span><span class="p">[</span><span class="mi">32</span><span class="p">]</span> <span class="n">my_float</span> <span class="o">=</span> <span class="err">π</span><span class="p">;</span>
+<span class="kt">float</span><span class="p">[</span><span class="mi">32</span><span class="p">]</span><span class="w"> </span><span class="n">my_float</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="err">π</span><span class="p">;</span><span class="w"></span>
 </pre></div>
 </div>
 </section>
@@ -192,10 +192,26 @@ oscillators found in hardware platform. Note that defining gate
 parameters with <code class="docutils literal notranslate"><span class="pre">angle</span></code> types may be necessary for those parameters to be
 compatible with run-time values on some platforms.</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="c1">// Declare an angle with 20 bits of precision and assign it a value of π/2</span>
-<span class="n">angle</span><span class="p">[</span><span class="mi">20</span><span class="p">]</span> <span class="n">my_angle</span> <span class="o">=</span> <span class="err">π</span> <span class="o">/</span> <span class="mi">2</span><span class="p">;</span>
-<span class="kt">float</span><span class="p">[</span><span class="mi">32</span><span class="p">]</span> <span class="n">float_pi</span> <span class="o">=</span> <span class="err">π</span><span class="p">;</span>
+<span class="n">angle</span><span class="p">[</span><span class="mi">20</span><span class="p">]</span><span class="w"> </span><span class="n">my_angle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="err">π</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span><span class="w"></span>
+<span class="kt">float</span><span class="p">[</span><span class="mi">32</span><span class="p">]</span><span class="w"> </span><span class="n">float_pi</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="err">π</span><span class="p">;</span><span class="w"></span>
 <span class="c1">// equivalent to pi_by_2 up to rounding errors</span>
-<span class="n">angle</span><span class="p">[</span><span class="mi">20</span><span class="p">](</span><span class="n">float_pi</span> <span class="o">/</span> <span class="mi">2</span><span class="p">);</span>
+<span class="n">angle</span><span class="p">[</span><span class="mi">20</span><span class="p">](</span><span class="n">float_pi</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">2</span><span class="p">);</span><span class="w"></span>
+</pre></div>
+</div>
+</section>
+<section id="complex-numbers">
+<h3>Complex numbers<a class="headerlink" href="#complex-numbers" title="Permalink to this headline">¶</a></h3>
+<p>Complex numbers may be declared as <code class="docutils literal notranslate"><span class="pre">complex[type[size]]</span> <span class="pre">name</span></code>, for a numeric OpenQASM classical type
+<code class="docutils literal notranslate"><span class="pre">type</span></code> (<code class="docutils literal notranslate"><span class="pre">int</span></code>, <code class="docutils literal notranslate"><span class="pre">fixed</span></code>, <code class="docutils literal notranslate"><span class="pre">float</span></code>, <code class="docutils literal notranslate"><span class="pre">angle</span></code>) and a number of bits <code class="docutils literal notranslate"><span class="pre">size</span></code>. The real
+and imaginary parts of the complex number are <code class="docutils literal notranslate"><span class="pre">type[size]</span></code> types. For instance, <code class="docutils literal notranslate"><span class="pre">complex[float[32]]</span> <span class="pre">c</span></code>
+would declare a complex number with real and imaginary parts that are 32-bit floating point numbers. The
+<code class="docutils literal notranslate"><span class="pre">im</span></code> keyword defines the imaginary number <span class="math notranslate nohighlight">\(sqrt(-1)\)</span>. <code class="docutils literal notranslate"><span class="pre">complex[type[size]]</span></code> types are initalized as
+<code class="docutils literal notranslate"><span class="pre">a</span> <span class="pre">+</span> <span class="pre">b</span> <span class="pre">im</span></code>, where <code class="docutils literal notranslate"><span class="pre">a</span></code> and <code class="docutils literal notranslate"><span class="pre">b</span></code> must be of the same type as <code class="docutils literal notranslate"><span class="pre">type[size]</span></code>. <code class="docutils literal notranslate"><span class="pre">b</span></code> must occur to the
+left of <code class="docutils literal notranslate"><span class="pre">im</span></code> and the two can only be seperated by spaces/tabs (or nothing at all).</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span>complex[float[64]] c;
+c = 2.5 + 3.5im; // 2.5, 3.5 are resolved to be ``float[64]`` types
+complex[float[64]] d = 2.0+sin(π) + 3.1*5.5 im;
+complex[int[32]] f = 2 + 5 im; // 2, 5 are resolved to be ``int[32]`` types
 </pre></div>
 </div>
 </section>
@@ -204,10 +220,10 @@ compatible with run-time values on some platforms.</p>
 <p>There is a Boolean type <code class="docutils literal notranslate"><span class="pre">bool</span> <span class="pre">name;</span></code> that takes values <code class="docutils literal notranslate"><span class="pre">true</span></code> or <code class="docutils literal notranslate"><span class="pre">false</span></code>. Qubit measurement results
 can be converted from a classical <code class="docutils literal notranslate"><span class="pre">bit</span></code> type to a Boolean using <code class="docutils literal notranslate"><span class="pre">bool(c)</span></code>, where 1 will
 be true and 0 will be false.</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">bit</span> <span class="n">my_bit</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-<span class="kt">bool</span> <span class="n">my_bool</span><span class="p">;</span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">bit</span><span class="w"> </span><span class="n">my_bit</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+<span class="kt">bool</span><span class="w"> </span><span class="n">my_bool</span><span class="p">;</span><span class="w"></span>
 <span class="c1">// Assign a cast bit to a boolean</span>
-<span class="n">my_bool</span> <span class="o">=</span> <span class="kt">bool</span><span class="p">(</span><span class="n">my_bit</span><span class="p">);</span>
+<span class="n">my_bool</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kt">bool</span><span class="p">(</span><span class="n">my_bit</span><span class="p">);</span><span class="w"></span>
 </pre></div>
 </div>
 </section>
@@ -234,13 +250,13 @@ constants are permitted.</p>
 <p>A standard set of built-in constants which are included in the default
 namespace are listed in table <a class="reference external" href="#tab:real-constants">1</a>.</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="c1">// Declare a constant</span>
-<span class="k">const</span> <span class="n">my_const</span> <span class="o">=</span> <span class="mi">1234</span><span class="p">;</span>
+<span class="k">const</span><span class="w"> </span><span class="n">my_const</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1234</span><span class="p">;</span><span class="w"></span>
 <span class="c1">// Scientific notation is supported</span>
-<span class="k">const</span> <span class="n">another_const</span> <span class="o">=</span> <span class="mf">1e2</span><span class="p">;</span>
+<span class="k">const</span><span class="w"> </span><span class="n">another_const</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1e2</span><span class="p">;</span><span class="w"></span>
 <span class="c1">// Constant expressions are supported</span>
-<span class="k">const</span> <span class="n">pi_by_2</span> <span class="o">=</span> <span class="err">π</span> <span class="o">/</span> <span class="mi">2</span><span class="p">;</span>
+<span class="k">const</span><span class="w"> </span><span class="n">pi_by_2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="err">π</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span><span class="w"></span>
 <span class="c1">// Constants may be cast to real-time values</span>
-<span class="kt">float</span><span class="p">[</span><span class="mi">32</span><span class="p">]</span> <span class="n">pi_by_2_val</span> <span class="o">=</span> <span class="kt">float</span><span class="p">(</span><span class="n">pi_by_2</span><span class="p">)</span>
+<span class="kt">float</span><span class="p">[</span><span class="mi">32</span><span class="p">]</span><span class="w"> </span><span class="n">pi_by_2_val</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kt">float</span><span class="p">(</span><span class="n">pi_by_2</span><span class="p">)</span><span class="w"></span>
 </pre></div>
 </div>
 <div class="docutils container" id="tab-real-constants">
@@ -276,19 +292,20 @@ namespace are listed in table <a class="reference external" href="#tab:real-cons
 </tbody>
 </table>
 </div>
-<p>Note that <cite>e</cite> is a valid identifier. <cite>e/E</cite> are also used in scientifier notation where appropriate.
-Types related to timing
-———————–</p>
+<p>Note that <cite>e</cite> is a valid identifier. <cite>e/E</cite> are also used in scientific notation where appropriate.</p>
 </section>
+</section>
+<section id="types-related-to-timing">
+<h2>Types related to timing<a class="headerlink" href="#types-related-to-timing" title="Permalink to this headline">¶</a></h2>
 <section id="duration">
 <h3>Duration<a class="headerlink" href="#duration" title="Permalink to this headline">¶</a></h3>
 <p>We introduce a <code class="docutils literal notranslate"><span class="pre">duration</span></code> type to express timing.
 Durations are positive numbers with a unit of time. <code class="docutils literal notranslate"><span class="pre">ns,</span> <span class="pre">μs,</span> <span class="pre">ms,</span> <span class="pre">s</span></code> are used for SI time
 units. <code class="docutils literal notranslate"><span class="pre">dt</span></code> is a backend-dependent unit equivalent to one waveform sample on
 the backend. <code class="docutils literal notranslate"><span class="pre">durationof()</span></code> is an intrinsic function used to reference the duration of a calibrated gate.</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">duration</span> <span class="n">one_second</span> <span class="o">=</span> <span class="mi">1000</span><span class="n">ms</span><span class="p">;</span>
-<span class="n">duration</span> <span class="n">thousand_cycles</span> <span class="o">=</span> <span class="mi">1000</span><span class="n">dt</span><span class="p">;</span>
-<span class="n">duration</span> <span class="n">c</span> <span class="o">=</span> <span class="n">durationof</span><span class="p">({</span><span class="n">x</span> <span class="n">$3</span><span class="p">);</span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">duration</span><span class="w"> </span><span class="n">one_second</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1000</span><span class="n">ms</span><span class="p">;</span><span class="w"></span>
+<span class="n">duration</span><span class="w"> </span><span class="n">thousand_cycles</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1000</span><span class="n">dt</span><span class="p">;</span><span class="w"></span>
+<span class="n">duration</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">durationof</span><span class="p">({</span><span class="n">x</span><span class="w"> </span><span class="n">$3</span><span class="p">);</span><span class="w"></span>
 </pre></div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">duration</span></code> is further discussed in <a class="reference internal" href="delays.html#duration-and-stretch"><span class="std std-ref">Duration and stretch types</span></a></p>
@@ -307,9 +324,9 @@ intent.</p>
 <h2>Aliasing<a class="headerlink" href="#aliasing" title="Permalink to this headline">¶</a></h2>
 <p>The <code class="docutils literal notranslate"><span class="pre">let</span></code> keyword allows quantum bits and registers to be referred to by
 another name as long as the alias is in scope.</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">qubit</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span> <span class="n">q</span><span class="p">;</span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">qubit</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span><span class="w"> </span><span class="n">q</span><span class="p">;</span><span class="w"></span>
 <span class="c1">// myreg[0] refers to the qubit q[1]</span>
-<span class="n">let</span> <span class="n">myreg</span> <span class="o">=</span> <span class="n">q</span><span class="p">[</span><span class="mi">1</span><span class="o">:</span><span class="mi">4</span><span class="p">];</span>
+<span class="n">let</span><span class="w"> </span><span class="n">myreg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">q</span><span class="p">[</span><span class="mi">1</span><span class="o">:</span><span class="mi">4</span><span class="p">];</span><span class="w"></span>
 </pre></div>
 </div>
 </section>
@@ -336,24 +353,24 @@ the range corresponds to <span class="math notranslate nohighlight">\(\{a\}\)</s
 empty set. If <span class="math notranslate nohighlight">\(c\)</span> is not given, it is assumed to be one, and
 <span class="math notranslate nohighlight">\(c\)</span> cannot be zero. Note the index sets can be defined by
 variables whose values may only be known at run time.</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">qubit</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="n">one</span><span class="p">;</span>
-<span class="n">qubit</span><span class="p">[</span><span class="mi">10</span><span class="p">]</span> <span class="n">two</span><span class="p">;</span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">qubit</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="w"> </span><span class="n">one</span><span class="p">;</span><span class="w"></span>
+<span class="n">qubit</span><span class="p">[</span><span class="mi">10</span><span class="p">]</span><span class="w"> </span><span class="n">two</span><span class="p">;</span><span class="w"></span>
 <span class="c1">// Aliased register of twelve qubits</span>
-<span class="n">let</span> <span class="n">concatenated</span> <span class="o">=</span> <span class="n">one</span> <span class="o">||</span> <span class="n">two</span><span class="p">;</span>
+<span class="n">let</span><span class="w"> </span><span class="n">concatenated</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">one</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">two</span><span class="p">;</span><span class="w"></span>
 <span class="c1">// First qubit in aliased qubit array</span>
-<span class="n">let</span> <span class="n">first</span> <span class="o">=</span> <span class="n">concatenated</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+<span class="n">let</span><span class="w"> </span><span class="n">first</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">concatenated</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span><span class="w"></span>
 <span class="c1">// Last qubit in aliased qubit array</span>
-<span class="n">let</span> <span class="n">last</span> <span class="o">=</span> <span class="n">concatenated</span><span class="p">[</span><span class="mi">-1</span><span class="p">];</span>
+<span class="n">let</span><span class="w"> </span><span class="n">last</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">concatenated</span><span class="p">[</span><span class="mi">-1</span><span class="p">];</span><span class="w"></span>
 <span class="c1">// Qubits zero, three and five</span>
-<span class="n">let</span> <span class="n">qubit_selection</span> <span class="o">=</span> <span class="n">two</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">];</span>
+<span class="n">let</span><span class="w"> </span><span class="n">qubit_selection</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">two</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="p">];</span><span class="w"></span>
 <span class="c1">// First six qubits in aliased qubit array</span>
-<span class="n">let</span> <span class="n">sliced</span> <span class="o">=</span> <span class="n">concatenated</span><span class="p">[</span><span class="mi">0</span><span class="o">:</span><span class="mi">6</span><span class="p">];</span>
+<span class="n">let</span><span class="w"> </span><span class="n">sliced</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">concatenated</span><span class="p">[</span><span class="mi">0</span><span class="o">:</span><span class="mi">6</span><span class="p">];</span><span class="w"></span>
 <span class="c1">// Every second qubit</span>
-<span class="n">let</span> <span class="n">every_second</span> <span class="o">=</span> <span class="n">concatenated</span><span class="p">[</span><span class="mi">0</span><span class="o">:</span><span class="mi">2</span><span class="o">:</span><span class="mi">12</span><span class="p">];</span>
+<span class="n">let</span><span class="w"> </span><span class="n">every_second</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">concatenated</span><span class="p">[</span><span class="mi">0</span><span class="o">:</span><span class="mi">2</span><span class="o">:</span><span class="mi">12</span><span class="p">];</span><span class="w"></span>
 <span class="c1">// Using negative ranges to take the last 3 elements</span>
-<span class="n">let</span> <span class="n">last_three</span> <span class="o">=</span> <span class="n">two</span><span class="p">[</span><span class="mi">-4</span><span class="o">:</span><span class="mi">-1</span><span class="p">];</span>
+<span class="n">let</span><span class="w"> </span><span class="n">last_three</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">two</span><span class="p">[</span><span class="mi">-4</span><span class="o">:</span><span class="mi">-1</span><span class="p">];</span><span class="w"></span>
 <span class="c1">// Concatenate two alias in another one</span>
-<span class="n">let</span> <span class="n">both</span> <span class="o">=</span> <span class="n">sliced</span> <span class="o">||</span> <span class="n">last_three</span><span class="p">;</span>
+<span class="n">let</span><span class="w"> </span><span class="n">both</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sliced</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">last_three</span><span class="p">;</span><span class="w"></span>
 </pre></div>
 </div>
 </section>
@@ -386,6 +403,7 @@ variables whose values may only be known at run time.</p>
 <li class="toctree-l3"><a class="reference internal" href="#generalities">Generalities</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#quantum-types">Quantum types</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#classical-types">Classical types</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#types-related-to-timing">Types related to timing</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#aliasing">Aliasing</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#register-concatenation-and-slicing">Register concatenation and slicing</a></li>
 </ul>
@@ -418,7 +436,7 @@ variables whose values may only be known at run time.</p>
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
       <input type="submit" value="Go" />
     </form>
     </div>
@@ -440,7 +458,7 @@ variables whose values may only be known at run time.</p>
       &copy;2017-2020, Andrew W. Cross, Lev S. Bishop, John A. Smolin, Jay M. Gambetta.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.0.3</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.1.2</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |

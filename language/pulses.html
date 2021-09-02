@@ -53,8 +53,8 @@ OpenQASM to these pulse-level definitions of gates and measurement.</p>
 <p>The entry point to such gate and measurement definitions is the <code class="docutils literal notranslate"><span class="pre">defcal</span></code> keyword
 analogous to the <code class="docutils literal notranslate"><span class="pre">gate</span></code> keyword, but where the <code class="docutils literal notranslate"><span class="pre">defcal</span></code> body specifies a pulse-level
 instruction sequence on <em>physical</em> qubits, e.g.</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">defcal</span> <span class="nf">rz</span><span class="p">(</span><span class="n">angle</span><span class="p">[</span><span class="mi">20</span><span class="p">]</span> <span class="n">theta</span><span class="p">)</span> <span class="n">$0</span> <span class="p">{</span> <span class="p">...</span> <span class="p">}</span>
-<span class="n">defcal</span> <span class="n">measure</span> <span class="n">$0</span> <span class="o">-&gt;</span> <span class="n">bit</span> <span class="p">{</span> <span class="p">...</span> <span class="p">}</span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">defcal</span><span class="w"> </span><span class="nf">rz</span><span class="p">(</span><span class="n">angle</span><span class="p">[</span><span class="mi">20</span><span class="p">]</span><span class="w"> </span><span class="n">theta</span><span class="p">)</span><span class="w"> </span><span class="n">$0</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">...</span><span class="w"> </span><span class="p">}</span><span class="w"></span>
+<span class="n">defcal</span><span class="w"> </span><span class="n">measure</span><span class="w"> </span><span class="n">$0</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">bit</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">...</span><span class="w"> </span><span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
 <p>We distinguish gate and measurement definitions by the presence of a
@@ -70,24 +70,24 @@ a specific qubit on the device, e.g. <code class="docutils literal notranslate">
 qubit 2.</p>
 <p>One can define a <cite>defcal</cite> using an arbitrary <cite>$</cite> identifier, provided that gate is called using physical
 qubits. For instance, to define an equivalent <cite>rz</cite> calibration on qubits 0 and 1, we could write</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">defcal</span> <span class="nf">rz</span><span class="p">(</span><span class="n">angle</span><span class="p">[</span><span class="mi">20</span><span class="p">]</span> <span class="n">theta</span><span class="p">)</span> <span class="n">$q</span> <span class="p">{</span> <span class="p">...</span> <span class="p">}</span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">defcal</span><span class="w"> </span><span class="nf">rz</span><span class="p">(</span><span class="n">angle</span><span class="p">[</span><span class="mi">20</span><span class="p">]</span><span class="w"> </span><span class="n">theta</span><span class="p">)</span><span class="w"> </span><span class="n">$q</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">...</span><span class="w"> </span><span class="p">}</span><span class="w"></span>
 <span class="c1">// we&#39;ve defined ``rz`` on arbitrary physical qubits, so we can do:</span>
-<span class="n">rz</span><span class="p">(</span><span class="mf">3.14</span><span class="p">)</span> <span class="n">$0</span><span class="p">;</span>
-<span class="n">rz</span><span class="p">(</span><span class="mf">3.14</span><span class="p">)</span> <span class="n">$1</span><span class="p">;</span>
+<span class="n">rz</span><span class="p">(</span><span class="mf">3.14</span><span class="p">)</span><span class="w"> </span><span class="n">$0</span><span class="p">;</span><span class="w"></span>
+<span class="n">rz</span><span class="p">(</span><span class="mf">3.14</span><span class="p">)</span><span class="w"> </span><span class="n">$1</span><span class="p">;</span><span class="w"></span>
 </pre></div>
 </div>
 <p>As a consequence of the need for specialization of operations on
 particular qubits, the same symbol may be defined multiple
 times, e.g.</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">defcal</span> <span class="n">h</span> <span class="n">$0</span> <span class="p">{</span> <span class="p">...</span> <span class="p">}</span>
-<span class="n">defcal</span> <span class="n">h</span> <span class="n">$1</span> <span class="p">{</span> <span class="p">...</span> <span class="p">}</span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">defcal</span><span class="w"> </span><span class="n">h</span><span class="w"> </span><span class="n">$0</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">...</span><span class="w"> </span><span class="p">}</span><span class="w"></span>
+<span class="n">defcal</span><span class="w"> </span><span class="n">h</span><span class="w"> </span><span class="n">$1</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">...</span><span class="w"> </span><span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
 <p>and so forth. Some operations require further specialization on
 parameter values, so we also allow multiple declarations on the same
 physical qubits with different parameter values, e.g.</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">defcal</span> <span class="nf">rx</span><span class="p">(</span><span class="n">pi</span><span class="p">)</span> <span class="n">$0</span> <span class="p">{</span> <span class="p">...</span> <span class="p">}</span>
-<span class="n">defcal</span> <span class="nf">rx</span><span class="p">(</span><span class="n">pi</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span> <span class="n">$0</span> <span class="p">{</span> <span class="p">...</span> <span class="p">}</span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">defcal</span><span class="w"> </span><span class="nf">rx</span><span class="p">(</span><span class="n">pi</span><span class="p">)</span><span class="w"> </span><span class="n">$0</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">...</span><span class="w"> </span><span class="p">}</span><span class="w"></span>
+<span class="n">defcal</span><span class="w"> </span><span class="nf">rx</span><span class="p">(</span><span class="n">pi</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="n">$0</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">...</span><span class="w"> </span><span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
 <p>Given multiple definitions of the same symbol, the compiler will match
@@ -101,7 +101,7 @@ the most specific definition found for a given operation. Thus, given,</p>
 match (2), <code class="docutils literal notranslate"><span class="pre">rx(pi/2)</span> <span class="pre">$1</span></code> would match (1).</p>
 <p>Users specify the grammar used inside <code class="docutils literal notranslate"><span class="pre">defcal</span></code> blocks with a <code class="docutils literal notranslate"><span class="pre">defcalgrammar</span> <span class="pre">&quot;name&quot;</span></code> declaration.
 For instance,</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">defcalgrammar</span> <span class="s">&quot;openpulse&quot;</span><span class="p">;</span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">defcalgrammar</span><span class="w"> </span><span class="s">&quot;openpulse&quot;</span><span class="p">;</span><span class="w"></span>
 </pre></div>
 </div>
 <p>specifies that all <cite>defcal</cite>’s will use the “openpulse” grammar.</p>
@@ -169,7 +169,7 @@ of prior versions of OpenQASM.</p>
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
       <input type="submit" value="Go" />
     </form>
     </div>
@@ -191,7 +191,7 @@ of prior versions of OpenQASM.</p>
       &copy;2017-2020, Andrew W. Cross, Lev S. Bishop, John A. Smolin, Jay M. Gambetta.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.0.3</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.1.2</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |

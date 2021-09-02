@@ -77,15 +77,15 @@ allows the programmer to communicate many different circuits with a single
 file, which only has to be compiled once, amortizing the cost of compilation
 across many runs. For an example, we may consider a parameterized circuit which
 performs a measurement in a basis given by an input parameter:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">input</span> <span class="kt">int</span> <span class="n">basis</span><span class="p">;</span> <span class="c1">// 0 = X basis, 1 = Y basis, 2 = Z basis</span>
-<span class="n">output</span> <span class="n">bit</span> <span class="n">result</span><span class="p">;</span>
-<span class="n">qubit</span> <span class="n">q</span><span class="p">;</span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">input</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">basis</span><span class="p">;</span><span class="w"> </span><span class="c1">// 0 = X basis, 1 = Y basis, 2 = Z basis</span>
+<span class="n">output</span><span class="w"> </span><span class="n">bit</span><span class="w"> </span><span class="n">result</span><span class="p">;</span><span class="w"></span>
+<span class="n">qubit</span><span class="w"> </span><span class="n">q</span><span class="p">;</span><span class="w"></span>
 
 <span class="c1">// Some complicated circuit...</span>
 
-<span class="k">if</span> <span class="p">(</span><span class="n">basis</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="n">h</span> <span class="n">q</span><span class="p">;</span>
-<span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">basis</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="n">rx</span><span class="p">(</span><span class="err">π</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span> <span class="n">q</span><span class="p">;</span>
-<span class="n">result</span> <span class="o">=</span> <span class="n">measure</span> <span class="n">q</span><span class="p">;</span>
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">basis</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="n">h</span><span class="w"> </span><span class="n">q</span><span class="p">;</span><span class="w"></span>
+<span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">basis</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="n">rx</span><span class="p">(</span><span class="err">π</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="n">q</span><span class="p">;</span><span class="w"></span>
+<span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">measure</span><span class="w"> </span><span class="n">q</span><span class="p">;</span><span class="w"></span>
 </pre></div>
 </div>
 <p>For a second example, consider the Variable Quantum Eigensolver (VQE) algorithm <span class="bibtex" id="id1">[peruzzo2014variational]</span>.
@@ -93,13 +93,13 @@ In this algorithm the same circuit is repeated
 many times using different sets of free parameters to minimize an expectation
 value. The following is an example, in which there is also more than one input
 variable:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">input</span> <span class="n">angle</span><span class="p">[</span><span class="mi">32</span><span class="p">]</span> <span class="n">param1</span><span class="p">;</span>
-<span class="n">input</span> <span class="n">angle</span><span class="p">[</span><span class="mi">32</span><span class="p">]</span> <span class="n">param2</span><span class="p">;</span>
-<span class="n">qubit</span> <span class="n">q</span><span class="p">;</span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">input</span><span class="w"> </span><span class="n">angle</span><span class="p">[</span><span class="mi">32</span><span class="p">]</span><span class="w"> </span><span class="n">param1</span><span class="p">;</span><span class="w"></span>
+<span class="n">input</span><span class="w"> </span><span class="n">angle</span><span class="p">[</span><span class="mi">32</span><span class="p">]</span><span class="w"> </span><span class="n">param2</span><span class="p">;</span><span class="w"></span>
+<span class="n">qubit</span><span class="w"> </span><span class="n">q</span><span class="p">;</span><span class="w"></span>
 
 <span class="c1">// Build an ansatz using the above free parameters, eg.</span>
-<span class="n">rx</span><span class="p">(</span><span class="n">param1</span><span class="p">)</span> <span class="n">q</span><span class="p">;</span>
-<span class="n">ry</span><span class="p">(</span><span class="n">param2</span><span class="p">)</span> <span class="n">q</span><span class="p">;</span>
+<span class="n">rx</span><span class="p">(</span><span class="n">param1</span><span class="p">)</span><span class="w"> </span><span class="n">q</span><span class="p">;</span><span class="w"></span>
+<span class="n">ry</span><span class="p">(</span><span class="n">param2</span><span class="p">)</span><span class="w"> </span><span class="n">q</span><span class="p">;</span><span class="w"></span>
 
 <span class="c1">// Estimate the expectation value and store in an output variable</span>
 </pre></div>
@@ -183,7 +183,7 @@ not using parameterized circuits in a quantum program for the case of the VQE:</
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
       <input type="submit" value="Go" />
     </form>
     </div>
@@ -205,7 +205,7 @@ not using parameterized circuits in a quantum program for the case of the VQE:</
       &copy;2017-2020, Andrew W. Cross, Lev S. Bishop, John A. Smolin, Jay M. Gambetta.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.0.3</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.1.2</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |

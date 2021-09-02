@@ -57,13 +57,13 @@ which may not be directly accessible by the local controllers.</p>
 right-hand-side (RHS) of the assignment operator must be of the same
 type. For real-time values assignment is by copy of the RHS value to the
 assigned variable on the LHS.</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="p">[</span><span class="mi">32</span><span class="p">]</span> <span class="n">a</span><span class="p">;</span>
-<span class="kt">int</span><span class="p">[</span><span class="mi">32</span><span class="p">]</span> <span class="n">b</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span> <span class="c1">// Combined declaration and assignment</span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="p">[</span><span class="mi">32</span><span class="p">]</span><span class="w"> </span><span class="n">a</span><span class="p">;</span><span class="w"></span>
+<span class="kt">int</span><span class="p">[</span><span class="mi">32</span><span class="p">]</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">10</span><span class="p">;</span><span class="w"> </span><span class="c1">// Combined declaration and assignment</span>
 
-<span class="n">a</span> <span class="o">=</span> <span class="n">b</span><span class="p">;</span> <span class="c1">// Assign b to a</span>
-<span class="n">b</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-<span class="n">a</span> <span class="o">==</span> <span class="n">b</span><span class="p">;</span> <span class="c1">// False</span>
-<span class="n">a</span> <span class="o">==</span> <span class="mi">10</span><span class="p">;</span> <span class="c1">// True</span>
+<span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">b</span><span class="p">;</span><span class="w"> </span><span class="c1">// Assign b to a</span>
+<span class="n">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+<span class="n">a</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">b</span><span class="p">;</span><span class="w"> </span><span class="c1">// False</span>
+<span class="n">a</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">10</span><span class="p">;</span><span class="w"> </span><span class="c1">// True</span>
 </pre></div>
 </div>
 </section>
@@ -75,13 +75,13 @@ and <code class="docutils literal notranslate"><span class="pre">&amp;</span></c
 integer, and the corresponding assignment operators. The shift operators
 shift bits off the end. They also support not <code class="docutils literal notranslate"><span class="pre">~</span></code>, <code class="docutils literal notranslate"><span class="pre">popcount</span></code> <a class="footnote-reference brackets" href="#id4" id="id1">1</a>, and left and
 right circular shift, <code class="docutils literal notranslate"><span class="pre">rotl</span></code> and <code class="docutils literal notranslate"><span class="pre">rotr</span></code>, respectively.</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">bit</span><span class="p">[</span><span class="mi">8</span><span class="p">]</span> <span class="n">a</span> <span class="o">=</span> <span class="s">&quot;10001111&quot;</span><span class="p">;</span>
-<span class="n">bit</span><span class="p">[</span><span class="mi">8</span><span class="p">]</span> <span class="n">b</span> <span class="o">=</span> <span class="s">&quot;01110000&quot;</span><span class="p">;</span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">bit</span><span class="p">[</span><span class="mi">8</span><span class="p">]</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;10001111&quot;</span><span class="p">;</span><span class="w"></span>
+<span class="n">bit</span><span class="p">[</span><span class="mi">8</span><span class="p">]</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;01110000&quot;</span><span class="p">;</span><span class="w"></span>
 
-<span class="n">a</span> <span class="o">&lt;&lt;</span> <span class="mi">1</span><span class="p">;</span> <span class="c1">// Bit shift left produces &quot;00011110&quot;</span>
-<span class="n">rotl</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="c1">// Produces &quot;00111110&quot;</span>
-<span class="n">a</span> <span class="o">|</span> <span class="n">b</span><span class="p">;</span> <span class="c1">// Produces &quot;11111111&quot;</span>
-<span class="n">a</span> <span class="o">&amp;</span> <span class="n">b</span><span class="p">;</span> <span class="c1">// Produces &quot;00000000&quot;</span>
+<span class="n">a</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"> </span><span class="c1">// Bit shift left produces &quot;00011110&quot;</span>
+<span class="n">rotl</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="c1">// Produces &quot;00111110&quot;</span>
+<span class="n">a</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">b</span><span class="p">;</span><span class="w"> </span><span class="c1">// Produces &quot;11111111&quot;</span>
+<span class="n">a</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">b</span><span class="p">;</span><span class="w"> </span><span class="c1">// Produces &quot;00000000&quot;</span>
 </pre></div>
 </div>
 </section>
@@ -92,48 +92,58 @@ be compared (<span class="math notranslate nohighlight">\(&gt;\)</span>, <span c
 <span class="math notranslate nohighlight">\(!=\)</span>) and yield Boolean values. Boolean values support logical
 operators: and <code class="docutils literal notranslate"><span class="pre">&amp;&amp;</span></code>, or <code class="docutils literal notranslate"><span class="pre">||</span></code>, not <code class="docutils literal notranslate"><span class="pre">!</span></code>. The keyword <code class="docutils literal notranslate"><span class="pre">in</span></code> tests if an integer belongs to
 an index set, for example <code class="docutils literal notranslate"><span class="pre">i</span> <span class="pre">in</span> <span class="pre">{0,3}</span></code> returns <code class="docutils literal notranslate"><span class="pre">true</span></code> if i equals 0 or 3 and <code class="docutils literal notranslate"><span class="pre">false</span></code> otherwise.</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">bool</span> <span class="n">a</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>
-<span class="kt">int</span><span class="p">[</span><span class="mi">32</span><span class="p">]</span> <span class="n">b</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-<span class="n">fixed</span><span class="p">[</span><span class="mi">8</span><span class="p">,</span> <span class="mi">12</span><span class="p">]</span> <span class="n">c</span> <span class="o">=</span> <span class="mf">1.05</span><span class="p">;</span>
-<span class="n">angle</span><span class="p">[</span><span class="mi">32</span><span class="p">]</span> <span class="n">d</span> <span class="o">=</span> <span class="n">pi</span><span class="p">;</span>
-<span class="kt">float</span><span class="p">[</span><span class="mi">32</span><span class="p">]</span> <span class="n">e</span> <span class="o">=</span> <span class="n">pi</span><span class="p">;</span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">bool</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span><span class="w"></span>
+<span class="kt">int</span><span class="p">[</span><span class="mi">32</span><span class="p">]</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"></span>
+<span class="n">fixed</span><span class="p">[</span><span class="mi">8</span><span class="p">,</span><span class="w"> </span><span class="mi">12</span><span class="p">]</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1.05</span><span class="p">;</span><span class="w"></span>
+<span class="n">angle</span><span class="p">[</span><span class="mi">32</span><span class="p">]</span><span class="w"> </span><span class="n">d</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pi</span><span class="p">;</span><span class="w"></span>
+<span class="kt">float</span><span class="p">[</span><span class="mi">32</span><span class="p">]</span><span class="w"> </span><span class="n">e</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pi</span><span class="p">;</span><span class="w"></span>
 
-<span class="n">a</span> <span class="o">==</span> <span class="nb">false</span><span class="p">;</span> <span class="c1">// True</span>
-<span class="n">a</span> <span class="o">==</span> <span class="kt">bool</span><span class="p">(</span><span class="n">b</span><span class="p">);</span> <span class="c1">// False</span>
-<span class="n">c</span> <span class="o">&gt;=</span> <span class="n">b</span><span class="p">;</span> <span class="c1">// True</span>
-<span class="n">d</span> <span class="o">==</span> <span class="n">pi</span><span class="p">;</span> <span class="c1">// True</span>
+<span class="n">a</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span><span class="w"> </span><span class="c1">// True</span>
+<span class="n">a</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="kt">bool</span><span class="p">(</span><span class="n">b</span><span class="p">);</span><span class="w"> </span><span class="c1">// False</span>
+<span class="n">c</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="n">b</span><span class="p">;</span><span class="w"> </span><span class="c1">// True</span>
+<span class="n">d</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">pi</span><span class="p">;</span><span class="w"> </span><span class="c1">// True</span>
 <span class="c1">// Susceptible to floating point casting errors</span>
-<span class="n">e</span> <span class="o">==</span> <span class="kt">float</span><span class="p">(</span><span class="n">d</span><span class="p">);</span>
+<span class="n">e</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="kt">float</span><span class="p">(</span><span class="n">d</span><span class="p">);</span><span class="w"></span>
 </pre></div>
 </div>
 </section>
 <section id="integers">
 <h3>Integers<a class="headerlink" href="#integers" title="Permalink to this headline">¶</a></h3>
-<p>Integer types support addition <code class="docutils literal notranslate"><span class="pre">+</span></code>, subtraction <code class="docutils literal notranslate"><span class="pre">-</span></code>, multiplication <code class="docutils literal notranslate"><span class="pre">*</span></code>, integer division <a class="footnote-reference brackets" href="#id5" id="id2">2</a> <code class="docutils literal notranslate"><span class="pre">/</span></code>,
-modulo <code class="docutils literal notranslate"><span class="pre">%</span></code>, and power <code class="docutils literal notranslate"><span class="pre">**</span></code>; the corresponding assignments <code class="docutils literal notranslate"><span class="pre">+=</span></code>, <code class="docutils literal notranslate"><span class="pre">-=</span></code>, <code class="docutils literal notranslate"><span class="pre">*=</span></code>, <code class="docutils literal notranslate"><span class="pre">/=</span></code>, <code class="docutils literal notranslate"><span class="pre">%=</span></code> and
-<code class="docutils literal notranslate"><span class="pre">**=</span></code>; as well as increment <code class="docutils literal notranslate"><span class="pre">++</span></code> and decrement <code class="docutils literal notranslate"><span class="pre">--</span></code>.</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="p">[</span><span class="mi">32</span><span class="p">]</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
-<span class="kt">int</span><span class="p">[</span><span class="mi">32</span><span class="p">]</span> <span class="n">b</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
+<p>Integer types support addition <code class="docutils literal notranslate"><span class="pre">+</span></code>, subtraction <code class="docutils literal notranslate"><span class="pre">-</span></code>, multiplication <code class="docutils literal notranslate"><span class="pre">*</span></code>, integer division <a class="footnote-reference brackets" href="#id5" id="id2">2</a> <code class="docutils literal notranslate"><span class="pre">/</span></code>, modulo <code class="docutils literal notranslate"><span class="pre">%</span></code>, and power <code class="docutils literal notranslate"><span class="pre">**</span></code>, as well as the corresponding assignments <code class="docutils literal notranslate"><span class="pre">+=</span></code>, <code class="docutils literal notranslate"><span class="pre">-=</span></code>, <code class="docutils literal notranslate"><span class="pre">*=</span></code>, <code class="docutils literal notranslate"><span class="pre">/=</span></code>, <code class="docutils literal notranslate"><span class="pre">%=</span></code>, and <code class="docutils literal notranslate"><span class="pre">**=</span></code>.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="p">[</span><span class="mi">32</span><span class="p">]</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span><span class="w"></span>
+<span class="kt">int</span><span class="p">[</span><span class="mi">32</span><span class="p">]</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span><span class="w"></span>
 
-<span class="n">a</span> <span class="o">*</span> <span class="n">b</span><span class="p">;</span> <span class="c1">// 6</span>
-<span class="n">b</span> <span class="o">/</span> <span class="n">a</span><span class="p">;</span> <span class="c1">// 1</span>
-<span class="n">b</span> <span class="o">%</span> <span class="n">a</span><span class="p">;</span> <span class="c1">// 1</span>
-<span class="n">a</span> <span class="o">**</span> <span class="n">b</span><span class="p">;</span> <span class="c1">// 8</span>
-<span class="n">a</span> <span class="o">+=</span> <span class="mi">4</span><span class="p">;</span> <span class="c1">// a == 6</span>
-<span class="n">a</span><span class="o">++</span><span class="p">;</span> <span class="c1">// a == 7</span>
+<span class="n">a</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">b</span><span class="p">;</span><span class="w"> </span><span class="c1">// 6</span>
+<span class="n">b</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">a</span><span class="p">;</span><span class="w"> </span><span class="c1">// 1</span>
+<span class="n">b</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="n">a</span><span class="p">;</span><span class="w"> </span><span class="c1">// 1</span>
+<span class="n">a</span><span class="w"> </span><span class="o">**</span><span class="w"> </span><span class="n">b</span><span class="p">;</span><span class="w"> </span><span class="c1">// 8</span>
+<span class="n">a</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="mi">4</span><span class="p">;</span><span class="w"> </span><span class="c1">// a == 6</span>
 </pre></div>
 </div>
 </section>
-<section id="fixed-point-numbers-and-angles">
-<h3>Fixed-point numbers and angles<a class="headerlink" href="#fixed-point-numbers-and-angles" title="Permalink to this headline">¶</a></h3>
-<p>Fixed-point and angle types support addition, subtraction,
-multiplication, division and power and the corresponding assignment operators.</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">angle</span><span class="p">[</span><span class="mi">20</span><span class="p">]</span> <span class="n">a</span> <span class="o">=</span> <span class="n">pi</span> <span class="o">/</span> <span class="mi">2</span><span class="p">;</span>
-<span class="n">angle</span><span class="p">[</span><span class="mi">20</span><span class="p">]</span> <span class="n">b</span> <span class="o">=</span> <span class="n">pi</span><span class="p">;</span>
-<span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="p">;</span> <span class="c1">// 3/2 * pi</span>
-<span class="n">a</span> <span class="o">**</span> <span class="n">b</span><span class="p">;</span> <span class="c1">// 4.1316...</span>
-<span class="n">angle</span><span class="p">[</span><span class="mi">10</span><span class="p">]</span> <span class="n">c</span><span class="p">;</span>
-<span class="n">c</span> <span class="o">=</span> <span class="n">angle</span><span class="p">(</span><span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="p">);</span> <span class="c1">// cast to angle[10]</span>
+<section id="fixed-point-numbers-floating-point-numbers-and-angles">
+<h3>Fixed-point numbers, floating-point numbers and angles<a class="headerlink" href="#fixed-point-numbers-floating-point-numbers-and-angles" title="Permalink to this headline">¶</a></h3>
+<p>Fixed-point, floating-point, and angle types support addition, subtraction,
+multiplication, division, and power and the corresponding assignment operators.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">angle</span><span class="p">[</span><span class="mi">20</span><span class="p">]</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pi</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span><span class="w"></span>
+<span class="n">angle</span><span class="p">[</span><span class="mi">20</span><span class="p">]</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pi</span><span class="p">;</span><span class="w"></span>
+<span class="n">a</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">b</span><span class="p">;</span><span class="w"> </span><span class="c1">// 3/2 * pi</span>
+<span class="n">a</span><span class="w"> </span><span class="o">**</span><span class="w"> </span><span class="n">b</span><span class="p">;</span><span class="w"> </span><span class="c1">// 4.1316...</span>
+<span class="n">angle</span><span class="p">[</span><span class="mi">10</span><span class="p">]</span><span class="w"> </span><span class="n">c</span><span class="p">;</span><span class="w"></span>
+<span class="n">c</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">angle</span><span class="p">(</span><span class="n">a</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">b</span><span class="p">);</span><span class="w"> </span><span class="c1">// cast to angle[10]</span>
+</pre></div>
+</div>
+</section>
+<section id="complex-numbers">
+<h3>Complex numbers<a class="headerlink" href="#complex-numbers" title="Permalink to this headline">¶</a></h3>
+<p>Complex numbers support addition, subtraction, multiplication, and division and the corresponding
+assignment operators.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">complex</span><span class="p">[</span><span class="kt">float</span><span class="p">[</span><span class="mi">64</span><span class="p">]]</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">10.0</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mf">5.0</span><span class="n">im</span><span class="p">;</span><span class="w"></span>
+<span class="k">complex</span><span class="p">[</span><span class="kt">float</span><span class="p">[</span><span class="mi">64</span><span class="p">]]</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">-2.0</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mf">7.0</span><span class="n">im</span><span class="p">;</span><span class="w"></span>
+<span class="k">complex</span><span class="p">[</span><span class="kt">float</span><span class="p">[</span><span class="mi">64</span><span class="p">]]</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">b</span><span class="p">;</span><span class="w"> </span><span class="c1">// c = 8.0 - 2.0im</span>
+<span class="k">complex</span><span class="p">[</span><span class="kt">float</span><span class="p">[</span><span class="mi">64</span><span class="p">]]</span><span class="w"> </span><span class="n">d</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">b</span><span class="p">;</span><span class="w"> </span><span class="c1">// d = 12.0+12.0im;</span>
+<span class="k">complex</span><span class="p">[</span><span class="kt">float</span><span class="p">[</span><span class="mi">64</span><span class="p">]]</span><span class="w"> </span><span class="n">e</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="o">*</span><span class="n">b</span><span class="p">;</span><span class="w"> </span><span class="c1">// e = 15.0-80.0im;</span>
+<span class="k">complex</span><span class="p">[</span><span class="kt">float</span><span class="p">[</span><span class="mi">64</span><span class="p">]]</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="o">/</span><span class="n">b</span><span class="p">;</span><span class="w"> </span><span class="c1">// f = (-55.0+60.0im)/53.0</span>
 </pre></div>
 </div>
 </section>
@@ -151,8 +161,8 @@ multiplication, division and power and the corresponding assignment operators.</
 <tr class="row-odd"><td><p>Operator</p></td>
 <td><p>Operator Types</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">()</span></code>, <code class="docutils literal notranslate"><span class="pre">[]</span></code>, <code class="docutils literal notranslate"><span class="pre">++</span></code>, <code class="docutils literal notranslate"><span class="pre">(type)(x)</span></code></p></td>
-<td><p>Call, index, incrementors, cast</p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">()</span></code>, <code class="docutils literal notranslate"><span class="pre">[]</span></code>, <code class="docutils literal notranslate"><span class="pre">(type)(x)</span></code></p></td>
+<td><p>Call, index, cast</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">**</span></code></p></td>
 <td><p>Power</p></td>
@@ -198,74 +208,74 @@ multiplication, division and power and the corresponding assignment operators.</
 <h3>Looping and branching<a class="headerlink" href="#looping-and-branching" title="Permalink to this headline">¶</a></h3>
 <p>The statement <code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">(</span> <span class="pre">bool</span> <span class="pre">)</span> <span class="pre">{</span> <span class="pre">program</span> <span class="pre">}</span></code> branches to program if the Boolean evaluates to true and
 may optionally be followed by <code class="docutils literal notranslate"><span class="pre">else</span> <span class="pre">{</span> <span class="pre">program</span> <span class="pre">}</span></code>.</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">bool</span> <span class="n">target</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>
-<span class="n">qubit</span> <span class="n">a</span><span class="p">;</span>
-<span class="n">h</span> <span class="n">a</span><span class="p">;</span>
-<span class="n">bit</span> <span class="n">output</span> <span class="o">=</span> <span class="n">measure</span> <span class="n">qubit</span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">bool</span><span class="w"> </span><span class="n">target</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span><span class="w"></span>
+<span class="n">qubit</span><span class="w"> </span><span class="n">a</span><span class="p">;</span><span class="w"></span>
+<span class="n">h</span><span class="w"> </span><span class="n">a</span><span class="p">;</span><span class="w"></span>
+<span class="n">bit</span><span class="w"> </span><span class="n">output</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">measure</span><span class="w"> </span><span class="n">qubit</span><span class="w"></span>
 
 <span class="c1">// example of branching</span>
-<span class="k">if</span> <span class="p">(</span><span class="n">target</span> <span class="o">==</span> <span class="n">output</span><span class="p">)</span> <span class="p">{</span>
-   <span class="c1">// do something</span>
-<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-   <span class="c1">// do something else</span>
-<span class="p">}</span>
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">target</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">output</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">   </span><span class="c1">// do something</span>
+<span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">   </span><span class="c1">// do something else</span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
 <p>The statement <code class="docutils literal notranslate"><span class="pre">for</span> <span class="pre">name</span> <span class="pre">in</span> <span class="pre">indexset</span> <span class="pre">{</span> <span class="pre">program</span> <span class="pre">}</span></code> loops over integer values in the indexset, assigning them
 to <code class="docutils literal notranslate"><span class="pre">name</span></code>. The for loop body is not permitted to modify the loop variable of
 the indexset.</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="p">[</span><span class="mi">32</span><span class="p">]</span> <span class="n">b</span><span class="p">;</span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="p">[</span><span class="mi">32</span><span class="p">]</span><span class="w"> </span><span class="n">b</span><span class="p">;</span><span class="w"></span>
 <span class="c1">// loop over a discrete set of values</span>
-<span class="k">for</span> <span class="n">i</span> <span class="n">in</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">}</span> <span class="p">{</span>
-    <span class="n">b</span> <span class="o">+=</span> <span class="n">i</span><span class="p">;</span>
-<span class="p">}</span> <span class="c1">// b == 16</span>
+<span class="k">for</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="n">in</span><span class="w"> </span><span class="p">{</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w"> </span><span class="mi">10</span><span class="p">}</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">b</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">i</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"> </span><span class="c1">// b == 16</span>
 
 <span class="c1">// loop over every even integer from 0 to 20 using an indexset</span>
-<span class="k">for</span> <span class="n">i</span> <span class="n">in</span> <span class="p">[</span><span class="mi">0</span><span class="o">:</span><span class="mi">2</span><span class="o">:</span><span class="mi">20</span><span class="p">]</span> <span class="p">{</span>
-   <span class="c1">// do something</span>
-<span class="p">}</span>
+<span class="k">for</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="n">in</span><span class="w"> </span><span class="p">[</span><span class="mi">0</span><span class="o">:</span><span class="mi">2</span><span class="o">:</span><span class="mi">20</span><span class="p">]</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">   </span><span class="c1">// do something</span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
 <p>The statement <code class="docutils literal notranslate"><span class="pre">while</span> <span class="pre">(</span> <span class="pre">bool</span> <span class="pre">)</span> <span class="pre">{</span> <span class="pre">program</span> <span class="pre">}</span></code> executes program until the Boolean evaluates to
 false <a class="footnote-reference brackets" href="#id6" id="id3">3</a>. Variables in the loop condition statement may be modified
 within the while loop body.</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">qubit</span> <span class="n">q</span><span class="p">;</span>
-<span class="n">bit</span> <span class="n">result</span><span class="p">;</span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">qubit</span><span class="w"> </span><span class="n">q</span><span class="p">;</span><span class="w"></span>
+<span class="n">bit</span><span class="w"> </span><span class="n">result</span><span class="p">;</span><span class="w"></span>
 
-<span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
 <span class="c1">// Keep applying hadamards and measuring a qubit</span>
 <span class="c1">// until 10, |1&gt;s are measured</span>
-<span class="k">while</span> <span class="p">(</span><span class="n">i</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="p">)</span> <span class="p">{</span>
-    <span class="n">h</span> <span class="n">q</span><span class="p">;</span>
-    <span class="n">result</span> <span class="o">=</span> <span class="n">measure</span> <span class="n">q</span><span class="p">;</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">result</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">i</span><span class="o">++</span><span class="p">;</span>
-    <span class="p">}</span>
-<span class="p">}</span>
+<span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">10</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">h</span><span class="w"> </span><span class="n">q</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">measure</span><span class="w"> </span><span class="n">q</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">result</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="n">i</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
 <p>A block <code class="docutils literal notranslate"><span class="pre">{</span> <span class="pre">program</span> <span class="pre">}</span></code> can be exited with the statement <code class="docutils literal notranslate"><span class="pre">break;</span></code>. The statement <code class="docutils literal notranslate"><span class="pre">continue;</span></code> can appear in
 the body of a for or while loop. It returns control to the loop
 condition. The statement <code class="docutils literal notranslate"><span class="pre">end;</span></code> terminates the program. In all of the
 preceding, <code class="docutils literal notranslate"><span class="pre">{</span> <span class="pre">program</span> <span class="pre">}</span></code> can also be replaced by a statement without the braces.</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="p">[</span><span class="mi">32</span><span class="p">]</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="p">[</span><span class="mi">32</span><span class="p">]</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
 
-<span class="k">while</span> <span class="p">(</span><span class="n">i</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="p">)</span> <span class="p">{</span>
-    <span class="n">i</span><span class="o">++</span><span class="p">;</span>
-    <span class="c1">// continue to next loop iteration</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">i</span> <span class="o">==</span> <span class="mi">2</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">continue</span><span class="p">;</span>
-    <span class="p">}</span>
+<span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">10</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">i</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// continue to next loop iteration</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="k">continue</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
 
-    <span class="c1">// some program</span>
+<span class="w">    </span><span class="c1">// some program</span>
 
-    <span class="c1">// break out of loop</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">i</span> <span class="o">==</span> <span class="mi">4</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">break</span><span class="p">;</span>
-    <span class="p">}</span>
+<span class="w">    </span><span class="c1">// break out of loop</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">4</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="k">break</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
 
-    <span class="c1">// more program</span>
-<span class="p">}</span>
+<span class="w">    </span><span class="c1">// more program</span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
 </section>
@@ -363,7 +373,7 @@ compile into target code that imposes iteration limits</p>
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
       <input type="submit" value="Go" />
     </form>
     </div>
@@ -385,7 +395,7 @@ compile into target code that imposes iteration limits</p>
       &copy;2017-2020, Andrew W. Cross, Lev S. Bishop, John A. Smolin, Jay M. Gambetta.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.0.3</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.1.2</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |
