@@ -78,7 +78,7 @@ hardware resources.</p>
 <p>A port is a software abstraction representing any input or output component meant to manipulate and observe qubits. Ports
 are ultimately mapped to some combination of hardware resources, and there are varying versions of
 this mapping with differing granularity. For instance, a port may directly map to a digital-to-analog converter.
-Alternatively, a port may map to a combination of a digital NCO, analog-to-digital coverter, local oscillator, and amplifier.
+Alternatively, a port may map to a combination of a digital NCO, analog-to-digital converter, local oscillator, or amplifier.
 A single port may even map to multiple transmit (or receive) hardware that must work in synchronicity.
 Ultimately, it is simply a means by which a hardware vendor can provide relevant actuation knobs they wish to expose to the user
 in order to manipulate and observe qubits. As such, the level of granularity of the mapping is up to the hardware vendor.</p>
@@ -93,8 +93,8 @@ as configuration information to end users. Each port may also have associated
 static settings, such as local-oscillator frequencies, which do not vary
 throughout program execution. Again it is expected that vendors of quantum
 hardware provide a method for manipulating those static settings if appropriate.</p>
-<p>There are two kinds of ports: transmit ports (sending input to a quantum
-device) and receive ports (reading output from a quantum device).</p>
+<p>Currently all ports are bidirectional, eg., transmit and receive or in and out. It is the responsibility
+of the hardware target to limit the operations that may be applied to a given port.</p>
 <p>A port is only used to specify the physical resource on which to play a pulse or from which
 to capture data. The hardware can be accessed as OpenPulse <code class="docutils literal notranslate"><span class="pre">port</span></code>’s via <code class="docutils literal notranslate"><span class="pre">extern</span></code>
 identifier that specifies an external linkage that will be resolved at compile-time via vendor
@@ -117,7 +117,7 @@ bookkeeping of advancing time in a sequence of pulses.</p></li>
 relationship <span class="math notranslate nohighlight">\(e^{i\left(2\pi f t + \theta\right)}\)</span>,  where <cite>f</cite> is frequency and
 <span class="math notranslate nohighlight">\(\theta\)</span> is the accrued phase). In this way,  a <code class="docutils literal notranslate"><span class="pre">frame</span></code> type behaves analogously to
 a <a class="reference external" href="https://en.wikipedia.org/wiki/Numerically-controlled_oscillator">numerically-controlled oscillator (NCO)</a>).
-One motivation for keeping track of accured phase is to allow pulses to be defined in the rotating frame with the
+One motivation for keeping track of accrued phase is to allow pulses to be defined in the rotating frame with the
 effect being an equivalent application in the lab frame (i.e. with the carrier supplied by the <code class="docutils literal notranslate"><span class="pre">frame</span></code>).
 Another motivation is to more naturally implement a “virtual Z-gate”, which does not require a physical pulse but
 rather shifts the phase of all future pulses on that frame.</p></li>
@@ -213,10 +213,10 @@ compiler shall raise a compile-time error when encountering such frame manipulat
 <h2>Waveforms<a class="headerlink" href="#waveforms" title="Permalink to this headline">¶</a></h2>
 <p>Waveforms are of type <code class="docutils literal notranslate"><span class="pre">waveform</span></code> and can either be:</p>
 <ul class="simple">
-<li><p>An array of complex samples which define the points for the waveform envelope</p></li>
+<li><p>An array of complex samples (note this syntax is still under [active development](<a class="reference external" href="https://github.com/Qiskit/openqasm/pull/301">https://github.com/Qiskit/openqasm/pull/301</a>) and is subject to change.) which define the points for the waveform envelope</p></li>
 <li><p>An abstract mathematical function representing a waveform. This will later be
-materialized into a list of complex samples, either by the compiler or the hardware
-using the parameters provided to the <code class="docutils literal notranslate"><span class="pre">extern</span></code> defined pulse template.</p></li>
+materialized into a list of complex samples, either by the compiler or the
+hardware using the parameters provided to the <code class="docutils literal notranslate"><span class="pre">extern</span></code> declared waveform template.</p></li>
 </ul>
 <p>A value of type <code class="docutils literal notranslate"><span class="pre">waveform</span></code> may be defined either by explicitly constructing the complex samples
 or by calling one of the waveform template functions provided by the target device.
@@ -235,7 +235,7 @@ generators may have optimized implementations of common pulse shapes like gaussi
 Providing structured gaussian parameters instead of the materialized list of complex
 samples provides optimization opportunities that wouldn’t be available otherwise.</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// arbitrary complex samples</span>
-<span class="nx">waveform</span> <span class="nx">arb_waveform</span> <span class="o">=</span> <span class="p">[</span><span class="mf">1</span><span class="o">+</span><span class="mf">0</span><span class="o">*</span><span class="nx">j</span><span class="p">,</span> <span class="mf">0</span><span class="o">+</span><span class="mf">1</span><span class="o">*</span><span class="nx">j</span><span class="p">,</span> <span class="mf">1</span><span class="o">/</span><span class="nx">sqrt</span><span class="p">(</span><span class="mf">2</span><span class="p">)</span><span class="o">+</span><span class="mf">1</span><span class="o">/</span><span class="nx">sqrt</span><span class="p">(</span><span class="mf">2</span><span class="p">)</span><span class="o">*</span><span class="nx">j</span><span class="p">];</span>
+<span class="nx">waveform</span> <span class="nx">arb_waveform</span> <span class="o">=</span> <span class="p">[</span><span class="mf">1</span><span class="o">+</span><span class="mf">0</span><span class="nx">im</span><span class="p">,</span> <span class="mf">0</span><span class="o">+</span><span class="mf">1</span><span class="nx">im</span><span class="p">,</span> <span class="mf">1</span><span class="o">/</span><span class="nx">sqrt</span><span class="p">(</span><span class="mf">2</span><span class="p">)</span><span class="o">+</span><span class="mf">1</span><span class="o">/</span><span class="nx">sqrt</span><span class="p">(</span><span class="mf">2</span><span class="p">)</span><span class="nx">im</span><span class="p">];</span>
 
 <span class="c1">// amp is waveform amplitude at center</span>
 <span class="c1">// d is the overall duration of the waveform</span>
@@ -305,7 +305,7 @@ the frame <code class="docutils literal notranslate"><span class="pre">.phase</s
 <p>For example,</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">defcal</span> <span class="nx">play_my_pulses</span> <span class="nx">$0</span> <span class="p">{</span>
   <span class="c1">// Play a 3 sample pulse on the tx0 port</span>
-  <span class="nx">play</span><span class="p">([</span><span class="mf">1</span><span class="o">+</span><span class="mf">0</span><span class="o">*</span><span class="nx">j</span><span class="p">,</span> <span class="mf">0</span><span class="o">+</span><span class="mf">1</span><span class="o">*</span><span class="nx">j</span><span class="p">,</span> <span class="mf">1</span><span class="o">/</span><span class="nx">sqrt</span><span class="p">(</span><span class="mf">2</span><span class="p">)</span><span class="o">+</span><span class="mf">1</span><span class="o">/</span><span class="nx">sqrt</span><span class="p">(</span><span class="mf">2</span><span class="p">)</span><span class="o">*</span><span class="nx">j</span><span class="p">],</span> <span class="nx">driveframe</span><span class="p">);</span>
+  <span class="nx">play</span><span class="p">([</span><span class="mf">1</span><span class="o">+</span><span class="mf">0</span><span class="nx">im</span><span class="p">,</span> <span class="mf">0</span><span class="o">+</span><span class="mf">1</span><span class="nx">im</span><span class="p">,</span> <span class="mf">1</span><span class="o">/</span><span class="nx">sqrt</span><span class="p">(</span><span class="mf">2</span><span class="p">)</span><span class="o">+</span><span class="mf">1</span><span class="o">/</span><span class="nx">sqrt</span><span class="p">(</span><span class="mf">2</span><span class="p">)</span><span class="nx">im</span><span class="p">],</span> <span class="nx">driveframe</span><span class="p">);</span>
 
   <span class="c1">// Play a gaussian pulse on the tx1 port</span>
   <span class="nx">frame</span> <span class="nx">f1</span> <span class="o">=</span> <span class="nx">newframe</span><span class="p">(</span><span class="nx">tx1</span><span class="p">,</span> <span class="nx">q1_freq</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">);</span>
@@ -335,19 +335,19 @@ result into a single IQ value</p></li>
 <p>Again it is up to the hardware vendor to determine the parameters and write a
 extern definition at the top-level, such as:</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// Minimum requirement</span>
-<span class="nx">extern</span> <span class="nx">capture</span><span class="p">(</span><span class="nx">frame</span> <span class="nx">output</span><span class="p">);</span>
+<span class="nx">extern</span> <span class="nx">capture_v0</span><span class="p">(</span><span class="nx">frame</span> <span class="nx">output</span><span class="p">);</span>
 
 <span class="c1">// A capture command that returns an iq value</span>
-<span class="nx">extern</span> <span class="nx">capture</span><span class="p">(</span><span class="nx">waveform</span> <span class="nx">filter</span><span class="p">,</span> <span class="nx">frame</span> <span class="nx">output</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nx">complex</span><span class="p">[</span><span class="kr">float</span><span class="p">[</span><span class="mf">32</span><span class="p">]];</span>
+<span class="nx">extern</span> <span class="nx">capture_v1</span><span class="p">(</span><span class="nx">waveform</span> <span class="nx">filter</span><span class="p">,</span> <span class="nx">frame</span> <span class="nx">output</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nx">complex</span><span class="p">[</span><span class="kr">float</span><span class="p">[</span><span class="mf">32</span><span class="p">]];</span>
 
 <span class="c1">// A capture command that returns a discrimnated bit</span>
-<span class="nx">extern</span> <span class="nx">capture</span><span class="p">(</span><span class="nx">waveform</span> <span class="nx">filter</span><span class="p">,</span> <span class="nx">frame</span> <span class="nx">output</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nx">bit</span><span class="p">;</span>
+<span class="nx">extern</span> <span class="nx">capture_v2</span><span class="p">(</span><span class="nx">waveform</span> <span class="nx">filter</span><span class="p">,</span> <span class="nx">frame</span> <span class="nx">output</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nx">bit</span><span class="p">;</span>
 
 <span class="c1">// A capture command that returns a raw waveform data</span>
-<span class="nx">extern</span> <span class="nx">capture</span><span class="p">(</span><span class="nx">duration</span> <span class="nx">len</span><span class="p">,</span> <span class="nx">frame</span> <span class="nx">output</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nx">waveform</span><span class="p">;</span>
+<span class="nx">extern</span> <span class="nx">capture_v3</span><span class="p">(</span><span class="nx">duration</span> <span class="nx">len</span><span class="p">,</span> <span class="nx">frame</span> <span class="nx">output</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nx">waveform</span><span class="p">;</span>
 
 <span class="c1">// A capture that returns a count e.g. number of photons detected</span>
-<span class="nx">extern</span> <span class="nx">capture</span><span class="p">(</span><span class="nx">duration</span> <span class="nx">len</span><span class="p">,</span> <span class="nx">frame</span> <span class="nx">output</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kr">int</span>
+<span class="nx">extern</span> <span class="nx">capture_v4</span><span class="p">(</span><span class="nx">duration</span> <span class="nx">len</span><span class="p">,</span> <span class="nx">frame</span> <span class="nx">output</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kr">int</span>
 </pre></div>
 </div>
 <p>The return type of a <code class="docutils literal notranslate"><span class="pre">capture</span></code> command varies. It could be a raw trace, ie., a
@@ -384,7 +384,7 @@ discriminated using user-defined boxcar and discrimination <code class="docutils
 
     <span class="c1">// Capture transmitted data after interaction with measurement resonator</span>
     <span class="c1">// extern capture(duration duration, frame capture_frame) -&gt; waveform;</span>
-    <span class="nx">waveform</span> <span class="nx">raw_output</span> <span class="o">=</span> <span class="nx">capture</span><span class="p">(</span><span class="mf">16000</span><span class="nx">dt</span><span class="p">,</span> <span class="nx">capture_frame</span><span class="p">);</span>
+    <span class="nx">waveform</span> <span class="nx">raw_output</span> <span class="o">=</span> <span class="nx">capture_v1</span><span class="p">(</span><span class="mf">16000</span><span class="nx">dt</span><span class="p">,</span> <span class="nx">capture_frame</span><span class="p">);</span>
 
     <span class="c1">// Kernel and discriminate</span>
     <span class="nx">complex</span><span class="p">[</span><span class="kr">float</span><span class="p">[</span><span class="mf">32</span><span class="p">]]</span> <span class="nx">iq</span> <span class="o">=</span> <span class="nx">boxcar</span><span class="p">(</span><span class="nx">raw_output</span><span class="p">);</span>
@@ -532,7 +532,7 @@ of the frame is advanced using a <code class="docutils literal notranslate"><spa
   <span class="nx">extern</span> <span class="nx">port</span> <span class="nx">tx0</span><span class="p">;</span>
   <span class="nx">waveform</span> <span class="nx">p</span> <span class="o">=</span> <span class="p">...;</span> <span class="c1">// some 100ns waveform</span>
 
-  <span class="c1">// Frame initialized with accured phase of 0</span>
+  <span class="c1">// Frame initialized with accrued phase of 0</span>
   <span class="nx">frame</span> <span class="nx">driveframe0</span> <span class="o">=</span> <span class="nx">newframe</span><span class="p">(</span><span class="nx">tx0</span><span class="p">,</span> <span class="mf">5.0e9</span><span class="p">,</span> <span class="mf">0</span><span class="p">);</span>
 <span class="p">}</span>
 
@@ -954,7 +954,7 @@ many (just adding more frames, waveforms, plays, and captures).</p>
       &copy;2017-2020, Andrew W. Cross, Lev S. Bishop, John A. Smolin, Jay M. Gambetta.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.3.1</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.4.0</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |

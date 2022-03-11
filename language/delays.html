@@ -116,12 +116,12 @@ whatever their actual durations may be, we can do the following:</p>
 <span class="n">cx</span><span class="w"> </span><span class="n">q</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="w"> </span><span class="n">q</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span><span class="w"></span>
 <span class="n">U</span><span class="p">(</span><span class="n">pi</span><span class="o">/</span><span class="mi">4</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">pi</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="n">q</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span><span class="w"></span>
 <span class="n">cx</span><span class="w"> </span><span class="n">q</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span><span class="w"> </span><span class="n">q</span><span class="p">[</span><span class="mi">4</span><span class="p">];</span><span class="w"></span>
-<span class="n">stretch</span><span class="w"> </span><span class="n">s</span><span class="p">;</span><span class="w"></span>
-<span class="n">stretch</span><span class="w"> </span><span class="n">t</span><span class="p">;</span><span class="w"></span>
-<span class="n">stretch</span><span class="w"> </span><span class="n">u</span><span class="p">;</span><span class="w"></span>
-<span class="n">delay</span><span class="p">[</span><span class="n">s</span><span class="p">]</span><span class="w"> </span><span class="n">q</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="w"> </span><span class="n">q</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span><span class="w"></span>
-<span class="n">delay</span><span class="p">[</span><span class="n">t</span><span class="p">]</span><span class="w"> </span><span class="n">q</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span><span class="w"></span>
-<span class="n">delay</span><span class="p">[</span><span class="n">u</span><span class="p">]</span><span class="w"> </span><span class="n">q</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span><span class="w"> </span><span class="n">q</span><span class="p">[</span><span class="mi">4</span><span class="p">];</span><span class="w"></span>
+<span class="n">stretch</span><span class="w"> </span><span class="n">a</span><span class="p">;</span><span class="w"></span>
+<span class="n">stretch</span><span class="w"> </span><span class="n">b</span><span class="p">;</span><span class="w"></span>
+<span class="n">stretch</span><span class="w"> </span><span class="n">c</span><span class="p">;</span><span class="w"></span>
+<span class="n">delay</span><span class="p">[</span><span class="n">a</span><span class="p">]</span><span class="w"> </span><span class="n">q</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="w"> </span><span class="n">q</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span><span class="w"></span>
+<span class="n">delay</span><span class="p">[</span><span class="n">b</span><span class="p">]</span><span class="w"> </span><span class="n">q</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span><span class="w"></span>
+<span class="n">delay</span><span class="p">[</span><span class="n">c</span><span class="p">]</span><span class="w"> </span><span class="n">q</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span><span class="w"> </span><span class="n">q</span><span class="p">[</span><span class="mi">4</span><span class="p">];</span><span class="w"></span>
 <span class="n">barrier</span><span class="w"> </span><span class="n">q</span><span class="p">;</span><span class="w"></span>
 </pre></div>
 </div>
@@ -276,11 +276,11 @@ up with non-negative duration.</p>
 where the *centers* of pulses are equidistant from each other. We
 specify correct durations for the delays by using backtracking operations
 to properly take into account the finite duration of each gate.</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">stretch</span><span class="w"> </span><span class="n">s</span><span class="p">;</span><span class="w"></span>
-<span class="n">stretch</span><span class="w"> </span><span class="n">t</span><span class="p">;</span><span class="w"></span>
-<span class="n">duration</span><span class="w"> </span><span class="n">start_stretch</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">s</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mf">.5</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">durationof</span><span class="p">({</span><span class="n">x</span><span class="w"> </span><span class="n">$0</span><span class="p">;});</span><span class="w"></span>
-<span class="n">duration</span><span class="w"> </span><span class="n">middle_stretch</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">s</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mf">.5</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">duration0</span><span class="p">({</span><span class="n">x</span><span class="w"> </span><span class="n">$0</span><span class="p">;})</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mf">.5</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">durationof</span><span class="p">({</span><span class="n">y</span><span class="w"> </span><span class="n">$0</span><span class="p">;});</span><span class="w"></span>
-<span class="n">duration</span><span class="w"> </span><span class="n">end_stretch</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">s</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mf">.5</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">durationof</span><span class="p">({</span><span class="n">y</span><span class="w"> </span><span class="n">$0</span><span class="p">;});</span><span class="w"></span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">stretch</span><span class="w"> </span><span class="n">a</span><span class="p">;</span><span class="w"></span>
+<span class="n">stretch</span><span class="w"> </span><span class="n">b</span><span class="p">;</span><span class="w"></span>
+<span class="n">duration</span><span class="w"> </span><span class="n">start_stretch</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mf">.5</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">durationof</span><span class="p">({</span><span class="n">x</span><span class="w"> </span><span class="n">$0</span><span class="p">;});</span><span class="w"></span>
+<span class="n">duration</span><span class="w"> </span><span class="n">middle_stretch</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mf">.5</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">duration0</span><span class="p">({</span><span class="n">x</span><span class="w"> </span><span class="n">$0</span><span class="p">;})</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mf">.5</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">durationof</span><span class="p">({</span><span class="n">y</span><span class="w"> </span><span class="n">$0</span><span class="p">;});</span><span class="w"></span>
+<span class="n">duration</span><span class="w"> </span><span class="n">end_stretch</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mf">.5</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">durationof</span><span class="p">({</span><span class="n">y</span><span class="w"> </span><span class="n">$0</span><span class="p">;});</span><span class="w"></span>
 
 <span class="n">delay</span><span class="p">[</span><span class="n">start_stretch</span><span class="p">]</span><span class="w"> </span><span class="n">$0</span><span class="p">;</span><span class="w"></span>
 <span class="n">x</span><span class="w"> </span><span class="n">$0</span><span class="p">;</span><span class="w"></span>
@@ -293,7 +293,7 @@ to properly take into account the finite duration of each gate.</p>
 <span class="n">delay</span><span class="p">[</span><span class="n">end_stretch</span><span class="p">]</span><span class="w"> </span><span class="n">$0</span><span class="p">;</span><span class="w"></span>
 
 <span class="n">cx</span><span class="w"> </span><span class="n">$2</span><span class="p">,</span><span class="w"> </span><span class="n">$3</span><span class="p">;</span><span class="w"></span>
-<span class="n">delay</span><span class="p">[</span><span class="n">t</span><span class="p">]</span><span class="w"> </span><span class="n">$1</span><span class="p">;</span><span class="w"></span>
+<span class="n">delay</span><span class="p">[</span><span class="n">b</span><span class="p">]</span><span class="w"> </span><span class="n">$1</span><span class="p">;</span><span class="w"></span>
 <span class="n">cx</span><span class="w"> </span><span class="n">$1</span><span class="p">,</span><span class="w"> </span><span class="n">$2</span><span class="p">;</span><span class="w"></span>
 <span class="n">u</span><span class="w"> </span><span class="n">$3</span><span class="p">;</span><span class="w"></span>
 </pre></div>
@@ -310,27 +310,27 @@ the other side of a box are permitted, but moving operations either into or out 
 part of an optimization is forbidden. The compiler can also infer a description of the
 operation which a <code class="docutils literal notranslate"><span class="pre">box</span></code> definition is meant to realise, allowing it to re-order gates around
 the box. For example, consider a dynamical decoupling sequence inserted in a part of the circuit:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span>rx(2*π/12) q;
-box {
-    delay[ddt] q;
-    x q;
-    delay[ddt] q;
-    x q;
-    delay[ddt] q;
-}
-rx(3*π/12) q;
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">rx</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">π</span><span class="o">/</span><span class="mi">12</span><span class="p">)</span><span class="w"> </span><span class="n">q</span><span class="p">;</span><span class="w"></span>
+<span class="n">box</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">delay</span><span class="p">[</span><span class="n">ddt</span><span class="p">]</span><span class="w"> </span><span class="n">q</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">x</span><span class="w"> </span><span class="n">q</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">delay</span><span class="p">[</span><span class="n">ddt</span><span class="p">]</span><span class="w"> </span><span class="n">q</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">x</span><span class="w"> </span><span class="n">q</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">delay</span><span class="p">[</span><span class="n">ddt</span><span class="p">]</span><span class="w"> </span><span class="n">q</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+<span class="n">rx</span><span class="p">(</span><span class="mi">3</span><span class="o">*</span><span class="n">π</span><span class="o">/</span><span class="mi">12</span><span class="p">)</span><span class="w"> </span><span class="n">q</span><span class="p">;</span><span class="w"></span>
 </pre></div>
 </div>
 <p>By boxing the sequence, we create a box that implements the identity. The compiler is now free
 to commute a gate past the box by knowing the unitary implemented by the box:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span>rx(5*π/12) q;
-box {
-    delay[ddt] q;
-    x q;
-    delay[ddt] q;
-    x q;
-    delay[ddt] q;
-}
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">rx</span><span class="p">(</span><span class="mi">5</span><span class="o">*</span><span class="n">π</span><span class="o">/</span><span class="mi">12</span><span class="p">)</span><span class="w"> </span><span class="n">q</span><span class="p">;</span><span class="w"></span>
+<span class="n">box</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">delay</span><span class="p">[</span><span class="n">ddt</span><span class="p">]</span><span class="w"> </span><span class="n">q</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">x</span><span class="w"> </span><span class="n">q</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">delay</span><span class="p">[</span><span class="n">ddt</span><span class="p">]</span><span class="w"> </span><span class="n">q</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">x</span><span class="w"> </span><span class="n">q</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">delay</span><span class="p">[</span><span class="n">ddt</span><span class="p">]</span><span class="w"> </span><span class="n">q</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
 <p>The compiler can thus perform optimizations without interfering with the implmentation of the
@@ -360,15 +360,15 @@ on a set of qubits across its source line. The syntax is <code class="docutils l
 in the following example</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">cx</span><span class="w"> </span><span class="n">r</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="w"> </span><span class="n">r</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span><span class="w"></span>
 <span class="n">h</span><span class="w"> </span><span class="n">q</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span><span class="w"></span>
-<span class="n">h</span><span class="w"> </span><span class="n">s</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span><span class="w"></span>
+<span class="n">h</span><span class="w"> </span><span class="n">a</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span><span class="w"></span>
 <span class="n">barrier</span><span class="w"> </span><span class="n">r</span><span class="p">,</span><span class="w"> </span><span class="n">q</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span><span class="w"></span>
-<span class="n">h</span><span class="w"> </span><span class="n">s</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span><span class="w"></span>
+<span class="n">h</span><span class="w"> </span><span class="n">a</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span><span class="w"></span>
 <span class="n">cx</span><span class="w"> </span><span class="n">r</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="w"> </span><span class="n">r</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span><span class="w"></span>
 <span class="n">cx</span><span class="w"> </span><span class="n">r</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="w"> </span><span class="n">r</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span><span class="w"></span>
 </pre></div>
 </div>
 <p>This will prevent an attempt to combine the CNOT gates but will not
-constrain the pair of <code class="docutils literal notranslate"><span class="pre">h</span> <span class="pre">s[0];</span></code> gates, which might be executed before or after the
+constrain the pair of <code class="docutils literal notranslate"><span class="pre">h</span> <span class="pre">a[0];</span></code> gates, which might be executed before or after the
 barrier, or cancelled by a compiler.</p>
 <p>A <code class="docutils literal notranslate"><span class="pre">barrier</span></code> is similar to <code class="docutils literal notranslate"><span class="pre">delay[0]</span></code>. The main difference is that <code class="docutils literal notranslate"><span class="pre">delay</span></code> indicates a fully
 scheduled series of instructions, whereas <code class="docutils literal notranslate"><span class="pre">barrier</span></code> implies an ordering constraint that will be
@@ -460,7 +460,7 @@ qubits.</p>
       &copy;2017-2020, Andrew W. Cross, Lev S. Bishop, John A. Smolin, Jay M. Gambetta.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.3.1</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.4.0</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |

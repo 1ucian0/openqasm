@@ -57,8 +57,8 @@ example, to declare a set of qubits one must do</p>
 </pre></div>
 </div>
 <p>and to declare a set of classical variables</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="p">[</span><span class="mi">32</span><span class="p">]</span><span class="w"> </span><span class="n">x</span><span class="p">;</span><span class="w"></span>
-<span class="kt">float</span><span class="p">[</span><span class="mi">32</span><span class="p">]</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">5.5</span><span class="p">;</span><span class="w"></span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="p">[</span><span class="mi">32</span><span class="p">]</span><span class="w"> </span><span class="n">a</span><span class="p">;</span><span class="w"></span>
+<span class="kt">float</span><span class="p">[</span><span class="mi">32</span><span class="p">]</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">5.5</span><span class="p">;</span><span class="w"></span>
 <span class="n">bit</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="w"> </span><span class="n">c</span><span class="p">;</span><span class="w"></span>
 <span class="kt">bool</span><span class="w"> </span><span class="n">my_bool</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span><span class="w"></span>
 </pre></div>
@@ -106,7 +106,7 @@ circuits. Physical qubits must not be declared and they are, as all the qubits, 
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="c1">// Declare a qubit</span>
 <span class="n">qubit</span><span class="w"> </span><span class="n">gamma</span><span class="p">;</span><span class="w"></span>
 <span class="c1">// Declare a qubit with a Unicode name</span>
-<span class="n">qubit</span><span class="w"> </span><span class="err">γ</span><span class="p">;</span><span class="w"></span>
+<span class="n">qubit</span><span class="w"> </span><span class="n">γ</span><span class="p">;</span><span class="w"></span>
 <span class="c1">// Declare a qubit register with 20 qubits</span>
 <span class="n">qubit</span><span class="p">[</span><span class="mi">20</span><span class="p">]</span><span class="w"> </span><span class="n">qubit_array</span><span class="p">;</span><span class="w"></span>
 <span class="c1">// CNOT gate between physical qubits 0 and 1</span>
@@ -166,7 +166,7 @@ one another.</p>
 indicate a standard double-precision float. Note that some hardware
 vendors may not support manipulating these values at run-time.</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="c1">// Declare a single-precision 32-bit float</span>
-<span class="kt">float</span><span class="p">[</span><span class="mi">32</span><span class="p">]</span><span class="w"> </span><span class="n">my_float</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="err">π</span><span class="p">;</span><span class="w"></span>
+<span class="kt">float</span><span class="p">[</span><span class="mi">32</span><span class="p">]</span><span class="w"> </span><span class="n">my_float</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">π</span><span class="p">;</span><span class="w"></span>
 </pre></div>
 </div>
 </section>
@@ -182,8 +182,8 @@ oscillators found in hardware platform. Note that defining gate
 parameters with <code class="docutils literal notranslate"><span class="pre">angle</span></code> types may be necessary for those parameters to be
 compatible with run-time values on some platforms.</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="c1">// Declare an angle with 20 bits of precision and assign it a value of π/2</span>
-<span class="n">angle</span><span class="p">[</span><span class="mi">20</span><span class="p">]</span><span class="w"> </span><span class="n">my_angle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="err">π</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span><span class="w"></span>
-<span class="kt">float</span><span class="p">[</span><span class="mi">32</span><span class="p">]</span><span class="w"> </span><span class="n">float_pi</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="err">π</span><span class="p">;</span><span class="w"></span>
+<span class="n">angle</span><span class="p">[</span><span class="mi">20</span><span class="p">]</span><span class="w"> </span><span class="n">my_angle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">π</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span><span class="w"></span>
+<span class="kt">float</span><span class="p">[</span><span class="mi">32</span><span class="p">]</span><span class="w"> </span><span class="n">float_pi</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">π</span><span class="p">;</span><span class="w"></span>
 <span class="c1">// equivalent to pi_by_2 up to rounding errors</span>
 <span class="n">angle</span><span class="p">[</span><span class="mi">20</span><span class="p">](</span><span class="n">float_pi</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">2</span><span class="p">);</span><span class="w"></span>
 </pre></div>
@@ -198,7 +198,7 @@ would declare a complex number with real and imaginary parts that are 32-bit flo
 <code class="docutils literal notranslate"><span class="pre">im</span></code> keyword defines the imaginary number <span class="math notranslate nohighlight">\(sqrt(-1)\)</span>. <code class="docutils literal notranslate"><span class="pre">complex[type[size]]</span></code> types are initalized as
 <code class="docutils literal notranslate"><span class="pre">a</span> <span class="pre">+</span> <span class="pre">b</span> <span class="pre">im</span></code>, where <code class="docutils literal notranslate"><span class="pre">a</span></code> and <code class="docutils literal notranslate"><span class="pre">b</span></code> must be of the same type as <code class="docutils literal notranslate"><span class="pre">type[size]</span></code>. <code class="docutils literal notranslate"><span class="pre">b</span></code> must occur to the
 left of <code class="docutils literal notranslate"><span class="pre">im</span></code> and the two can only be seperated by spaces/tabs (or nothing at all).</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span>complex[float[64]] c;
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>complex[float[64]] c;
 c = 2.5 + 3.5im; // 2.5, 3.5 are resolved to be ``float[64]`` types
 complex[float[64]] d = 2.0+sin(π) + 3.1*5.5 im;
 complex[int[32]] f = 2 + 5 im; // 2, 5 are resolved to be ``int[32]`` types
@@ -229,7 +229,7 @@ including <code class="docutils literal notranslate"><span class="pre">sqrt</spa
 statement <code class="docutils literal notranslate"><span class="pre">const</span> <span class="pre">type</span> <span class="pre">name</span> <span class="pre">=</span> <span class="pre">expression;</span></code> defines a new constant. The expression on the right hand side
 has a similar syntax as OpenQASM 2 parameter expressions; however,
 previously defined constants can be referenced in later variable
-declarations. <code class="docutils literal notranslate"><span class="pre">const`</span></code> values are compile-time constants, allowing the
+declarations. <code class="docutils literal notranslate"><span class="pre">const</span></code> values are compile-time constants, allowing the
 compiler to do constant folding and other such optimizations. Scientific
 calculator-like operations on run-time values require extern function
 calls as described later and are not available by default. Real
@@ -242,7 +242,7 @@ are all of type <code class="docutils literal notranslate"><span class="pre">flo
 <span class="c1">// Scientific notation is supported</span>
 <span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="p">[</span><span class="mi">64</span><span class="p">]</span><span class="w"> </span><span class="n">another_const</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1e12</span><span class="p">;</span><span class="w"></span>
 <span class="c1">// Constant expressions are supported</span>
-<span class="k">const</span><span class="w"> </span><span class="kt">float</span><span class="p">[</span><span class="mi">64</span><span class="p">]</span><span class="w"> </span><span class="n">pi_by_2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="err">π</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span><span class="w"></span>
+<span class="k">const</span><span class="w"> </span><span class="kt">float</span><span class="p">[</span><span class="mi">64</span><span class="p">]</span><span class="w"> </span><span class="n">pi_by_2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">π</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span><span class="w"></span>
 <span class="c1">// Constants may be cast to real-time values</span>
 <span class="kt">float</span><span class="p">[</span><span class="mi">32</span><span class="p">]</span><span class="w"> </span><span class="n">pi_by_2_val</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kt">float</span><span class="p">[</span><span class="mi">32</span><span class="p">](</span><span class="n">pi_by_2</span><span class="p">)</span><span class="w"></span>
 </pre></div>
@@ -256,12 +256,14 @@ are all of type <code class="docutils literal notranslate"><span class="pre">flo
 <col style="width: 18%" />
 <col style="width: 26%" />
 </colgroup>
-<tbody>
-<tr class="row-odd"><td><p>Constant</p></td>
-<td><p>Alphanumeric</p></td>
-<td><p>Unicode</p></td>
-<td><p>Approximate Base 10</p></td>
+<thead>
+<tr class="row-odd"><th class="head"><p>Constant</p></th>
+<th class="head"><p>Alphanumeric</p></th>
+<th class="head"><p>Unicode</p></th>
+<th class="head"><p>Approximate Base 10</p></th>
 </tr>
+</thead>
+<tbody>
 <tr class="row-even"><td><p>Pi</p></td>
 <td><p>pi</p></td>
 <td><p>π</p></td>
@@ -282,6 +284,180 @@ are all of type <code class="docutils literal notranslate"><span class="pre">flo
 </div>
 <p>Note that <cite>e</cite> is a valid identifier. <cite>e/E</cite> are also used in scientific notation where appropriate.</p>
 </section>
+<section id="mathematical-functions-available-for-constant-initialization">
+<h3>Mathematical functions available for constant initialization<a class="headerlink" href="#mathematical-functions-available-for-constant-initialization" title="Permalink to this headline">¶</a></h3>
+<p>In addition to simple arithmetic functions used in expressions initializing constants,
+OpenQASM 3 offers the following built-in mathematical operators followed by
+their argument expression in parentheses:</p>
+<div class="docutils container" id="tab-built-in-math">
+<table class="docutils align-default" id="id3">
+<caption><span class="caption-number">Table 2 </span><span class="caption-text">Built-in mathematical functions in OpenQASM3.</span><a class="headerlink" href="#id3" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col style="width: 8%" />
+<col style="width: 28%" />
+<col style="width: 31%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Function</p></th>
+<th class="head"><p>Input Range/Type, […]</p></th>
+<th class="head"><p>Output Range/Type</p></th>
+<th class="head"><p>Notes</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>arccos</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">float</span></code> on <span class="math notranslate nohighlight">\([-1, 1]\)</span></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">float</span></code> on <span class="math notranslate nohighlight">\([0, \pi]\)</span></p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>arcsin</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">float</span></code> on <span class="math notranslate nohighlight">\([-1, 1]\)</span></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">float</span></code> on <span class="math notranslate nohighlight">\([-\pi/2, \pi/2]\)</span></p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>arctan</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">float</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">float</span></code> on <span class="math notranslate nohighlight">\([-\pi/2, \pi/2]\)</span></p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>ceiling</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">float</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">float</span></code></p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>cos</p></td>
+<td><p>(<code class="docutils literal notranslate"><span class="pre">float</span></code> or <code class="docutils literal notranslate"><span class="pre">angle</span></code>)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">float</span></code></p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>exp</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">float</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">complex</span></code></p>
+</td>
+<td><p><code class="docutils literal notranslate"><span class="pre">float</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">complex</span></code></p>
+</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>floor</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">float</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">float</span></code></p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>log</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">float</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">float</span></code></p></td>
+<td><p>Logarithm base <span class="math notranslate nohighlight">\(e\)</span></p></td>
+</tr>
+<tr class="row-even"><td><p>mod</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">int</span></code>, <code class="docutils literal notranslate"><span class="pre">int</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">float</span></code>, (<code class="docutils literal notranslate"><span class="pre">int</span></code> or <code class="docutils literal notranslate"><span class="pre">float</span></code>)</p>
+</td>
+<td><p><code class="docutils literal notranslate"><span class="pre">int</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">float</span></code></p>
+</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>popcount</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">bit[_]</span></code>, <code class="docutils literal notranslate"><span class="pre">uint</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">uint</span></code></p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>pow</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">int</span></code>, <code class="docutils literal notranslate"><span class="pre">uint</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">float</span></code>, <code class="docutils literal notranslate"><span class="pre">float</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">complex</span></code>, <code class="docutils literal notranslate"><span class="pre">complex</span></code></p>
+</td>
+<td><p><code class="docutils literal notranslate"><span class="pre">int</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">float</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">complex</span></code></p>
+</td>
+<td><p>For floating-point and complex values,
+the principal value is returned.</p></td>
+</tr>
+<tr class="row-odd"><td><p>rotl</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">bit[n]</span></code>, (<code class="docutils literal notranslate"><span class="pre">int</span></code> or <code class="docutils literal notranslate"><span class="pre">uint</span></code>)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">bit[n]</span></code></p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>rotr</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">bit[n]</span></code>, (<code class="docutils literal notranslate"><span class="pre">int</span></code> or <code class="docutils literal notranslate"><span class="pre">uint</span></code>)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">bit[n]</span></code></p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>sin</p></td>
+<td><p>(<code class="docutils literal notranslate"><span class="pre">float</span></code> or <code class="docutils literal notranslate"><span class="pre">angle</span></code>)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">float</span></code></p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>sqrt</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">float</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">complex</span></code></p>
+</td>
+<td><p><code class="docutils literal notranslate"><span class="pre">float</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">complex</span></code></p>
+</td>
+<td><p>Returns the principal root.</p></td>
+</tr>
+<tr class="row-odd"><td><p>tan</p></td>
+<td><p>(<code class="docutils literal notranslate"><span class="pre">float</span></code> or <code class="docutils literal notranslate"><span class="pre">angle</span></code>)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">float</span></code></p></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</section>
+<section id="arrays">
+<h2>Arrays<a class="headerlink" href="#arrays" title="Permalink to this headline">¶</a></h2>
+<p>Statically-sized arrays of values can be created and initialized, and individual elements
+can be accessed, using the following general syntax:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">array</span><span class="p">[</span><span class="kt">int</span><span class="p">[</span><span class="mi">32</span><span class="p">],</span><span class="w"> </span><span class="mi">5</span><span class="p">]</span><span class="w"> </span><span class="n">myArray</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">};</span><span class="w"></span>
+<span class="n">array</span><span class="p">[</span><span class="kt">float</span><span class="p">[</span><span class="mi">32</span><span class="p">],</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">]</span><span class="w"> </span><span class="n">multiDim</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{{</span><span class="mf">1.1</span><span class="p">,</span><span class="w"> </span><span class="mf">1.2</span><span class="p">},</span><span class="w"> </span><span class="p">{</span><span class="mf">2.1</span><span class="p">,</span><span class="w"> </span><span class="mf">2.2</span><span class="p">},</span><span class="w"> </span><span class="p">{</span><span class="mf">3.1</span><span class="p">,</span><span class="w"> </span><span class="mf">3.2</span><span class="p">}};</span><span class="w"></span>
+
+<span class="kt">int</span><span class="p">[</span><span class="mi">32</span><span class="p">]</span><span class="w"> </span><span class="n">firstElem</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">myArray</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span><span class="w"> </span><span class="c1">// 0</span>
+<span class="kt">int</span><span class="p">[</span><span class="mi">32</span><span class="p">]</span><span class="w"> </span><span class="n">lastElem</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">myArray</span><span class="p">[</span><span class="mi">4</span><span class="p">];</span><span class="w"> </span><span class="c1">// 4</span>
+<span class="kt">int</span><span class="p">[</span><span class="mi">32</span><span class="p">]</span><span class="w"> </span><span class="n">alsoLastElem</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">myArray</span><span class="p">[</span><span class="mi">-1</span><span class="p">];</span><span class="w"> </span><span class="c1">// 4</span>
+<span class="kt">float</span><span class="p">[</span><span class="mi">32</span><span class="p">]</span><span class="w"> </span><span class="n">firstLastElem</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">multiDim</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">];</span><span class="w"> </span><span class="c1">// 1.2</span>
+<span class="kt">float</span><span class="p">[</span><span class="mi">32</span><span class="p">]</span><span class="w"> </span><span class="n">lastLastElem</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">multiDim</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">];</span><span class="w"> </span><span class="c1">// 3.2</span>
+<span class="kt">float</span><span class="p">[</span><span class="mi">32</span><span class="p">]</span><span class="w"> </span><span class="n">alsoLastLastElem</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">multiDim</span><span class="p">[</span><span class="mi">-1</span><span class="p">,</span><span class="w"> </span><span class="mi">-1</span><span class="p">];</span><span class="w"> </span><span class="c1">// 3.2</span>
+
+<span class="n">myArray</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">10</span><span class="p">;</span><span class="w"> </span><span class="c1">// myArray == {0, 1, 2, 3, 10}</span>
+<span class="n">multiDim</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0</span><span class="p">;</span><span class="w"> </span><span class="c1">// multiDim == {{0.0, 1.2}, {2.1, 2.2}, {3.1, 3.2}}</span>
+<span class="n">multiDim</span><span class="p">[</span><span class="mi">-1</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0</span><span class="p">;</span><span class="w"> </span><span class="c1">// multiDim == {{0.0, 1.2}, {2.1, 2.2}, {3.1, 0.0}}</span>
+</pre></div>
+</div>
+<p>Arrays <em>cannot</em> be declared inside the body of a function or gate. All arrays
+<em>must</em> be declared within the global scope of the program.
+Indexing of arrays is n-based <em>i.e.</em>, negative indices are allowed.
+The index <code class="docutils literal notranslate"><span class="pre">-1</span></code> means the last element of the array, <code class="docutils literal notranslate"><span class="pre">-2</span></code> is the second to
+last, and so on, with <code class="docutils literal notranslate"><span class="pre">-n</span></code> being the first element of an n-element array.
+Multi-dimensional arrays (as in the example above) are allowed, with a maximum
+of 7 total dimensions. The subscript operator <code class="docutils literal notranslate"><span class="pre">[]</span></code> is used for element access,
+and for multi-dimensional arrays subarray accesses can be specified using a
+comma-delimited list of indices (<em>e.g.</em> <code class="docutils literal notranslate"><span class="pre">myArr[1,</span> <span class="pre">2,</span> <span class="pre">3]</span></code>), with the outer
+dimension specified first.</p>
+<p>For interoperability, the standard
+ways of declaring quantum registers and bit registers are equivalent to the
+array syntax version (<em>i.e.</em> <code class="docutils literal notranslate"><span class="pre">qubit[5]</span> <span class="pre">q1;</span></code> is the same as
+<code class="docutils literal notranslate"><span class="pre">array[qubit,</span> <span class="pre">5]</span> <span class="pre">q1;</span></code>).
+Assignment to elements of arrays, as in the examples above, acts as expected,
+with the left-hand side of the assignment operating as a reference, thereby
+updating the values inside the original array. For multi-dimensional arrays,
+the shape and type of the assigned value must match that of the reference.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">array</span><span class="p">[</span><span class="kt">int</span><span class="p">[</span><span class="mi">8</span><span class="p">],</span><span class="w"> </span><span class="mi">3</span><span class="p">]</span><span class="w"> </span><span class="n">aa</span><span class="p">;</span><span class="w"></span>
+<span class="n">array</span><span class="p">[</span><span class="kt">int</span><span class="p">[</span><span class="mi">8</span><span class="p">],</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">]</span><span class="w"> </span><span class="n">bb</span><span class="p">;</span><span class="w"></span>
+
+<span class="n">bb</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">aa</span><span class="p">;</span><span class="w"> </span><span class="c1">// all of aa is copied to first element of bb</span>
+<span class="n">bb</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">aa</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="w"> </span><span class="c1">// last element of aa is copied to one element of bb</span>
+
+<span class="n">bb</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="c1">// error - shape mismatch</span>
+</pre></div>
+</div>
+<p>Arrays may be passed to subroutines and externs. For more details, see
+<a class="reference internal" href="subroutines.html#arrays-in-subroutines"><span class="std std-ref">Arrays in subroutines</span></a>.</p>
 </section>
 <section id="types-related-to-timing">
 <h2>Types related to timing<a class="headerlink" href="#types-related-to-timing" title="Permalink to this headline">¶</a></h2>
@@ -319,6 +495,9 @@ another name as long as the alias is in scope.</p>
 </pre></div>
 </div>
 </section>
+<section id="index-sets-and-slicing">
+<h2>Index sets and slicing<a class="headerlink" href="#index-sets-and-slicing" title="Permalink to this headline">¶</a></h2>
+</section>
 <section id="register-concatenation-and-slicing">
 <h2>Register concatenation and slicing<a class="headerlink" href="#register-concatenation-and-slicing" title="Permalink to this headline">¶</a></h2>
 <p>Two or more registers of the same type (i.e. classical or quantum) can
@@ -332,9 +511,11 @@ subset of (qu)bits, i.e. by an index set. A register so indexed is
 interpreted as a register of the same type but with a different size.
 The register slice is a reference to the original register. A register
 cannot be indexed by an empty index set.</p>
+<p>Similarly, classical arrays can be indexed using index sets. See <a class="reference internal" href="#array-slicing"><span class="std std-ref">Array concatenation and slicing</span></a>.</p>
 <p>An index set can be specified by a single integer (signed or unsigned), a
-comma-separated list of unsigned integers <code class="docutils literal notranslate"><span class="pre">a,b,c,…</span></code>, or a range. A
-range is written as <code class="docutils literal notranslate"><span class="pre">a:b</span></code> or <code class="docutils literal notranslate"><span class="pre">a:c:b</span></code> where <code class="docutils literal notranslate"><span class="pre">a</span></code>, <code class="docutils literal notranslate"><span class="pre">b</span></code>, and <code class="docutils literal notranslate"><span class="pre">c</span></code> are integers (signed or unsigned).
+comma-separated list of integers contained in braces <code class="docutils literal notranslate"><span class="pre">{a,b,c,…}</span></code>, or a range.
+Ranges are written as <code class="docutils literal notranslate"><span class="pre">a:b</span></code> or
+<code class="docutils literal notranslate"><span class="pre">a:c:b</span></code> where <code class="docutils literal notranslate"><span class="pre">a</span></code>, <code class="docutils literal notranslate"><span class="pre">b</span></code>, and <code class="docutils literal notranslate"><span class="pre">c</span></code> are integers (signed or unsigned).
 The range corresponds to the set <span class="math notranslate nohighlight">\(\{a, a+c, a+2c, \dots, a+mc\}\)</span>
 where <span class="math notranslate nohighlight">\(m\)</span> is the largest integer such that <span class="math notranslate nohighlight">\(a+mc\leq b\)</span> if
 <span class="math notranslate nohighlight">\(c&gt;0\)</span> and <span class="math notranslate nohighlight">\(a+mc\geq b\)</span> if <span class="math notranslate nohighlight">\(c&lt;0\)</span>. If <span class="math notranslate nohighlight">\(a=b\)</span> then
@@ -351,7 +532,7 @@ variables whose values may only be known at run time.</p>
 <span class="c1">// Last qubit in aliased qubit array</span>
 <span class="n">let</span><span class="w"> </span><span class="n">last</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">concatenated</span><span class="p">[</span><span class="mi">-1</span><span class="p">];</span><span class="w"></span>
 <span class="c1">// Qubits zero, three and five</span>
-<span class="n">let</span><span class="w"> </span><span class="n">qubit_selection</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">two</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="p">];</span><span class="w"></span>
+<span class="n">let</span><span class="w"> </span><span class="n">qubit_selection</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">two</span><span class="p">[{</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="p">}];</span><span class="w"></span>
 <span class="c1">// First six qubits in aliased qubit array</span>
 <span class="n">let</span><span class="w"> </span><span class="n">sliced</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">concatenated</span><span class="p">[</span><span class="mi">0</span><span class="o">:</span><span class="mi">6</span><span class="p">];</span><span class="w"></span>
 <span class="c1">// Every second qubit</span>
@@ -360,6 +541,93 @@ variables whose values may only be known at run time.</p>
 <span class="n">let</span><span class="w"> </span><span class="n">last_three</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">two</span><span class="p">[</span><span class="mi">-4</span><span class="o">:</span><span class="mi">-1</span><span class="p">];</span><span class="w"></span>
 <span class="c1">// Concatenate two alias in another one</span>
 <span class="n">let</span><span class="w"> </span><span class="n">both</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sliced</span><span class="w"> </span><span class="o">++</span><span class="w"> </span><span class="n">last_three</span><span class="p">;</span><span class="w"></span>
+</pre></div>
+</div>
+</section>
+<section id="classical-value-bit-slicing">
+<h2>Classical value bit slicing<a class="headerlink" href="#classical-value-bit-slicing" title="Permalink to this headline">¶</a></h2>
+<p>A subset of classical values (int, uint, and angle) may be accessed at the bit
+level using index sets similar to register slicing. The bit slicing operation
+always returns a bit array of size equal to the size of the index set.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="p">[</span><span class="mi">32</span><span class="p">]</span><span class="w"> </span><span class="n">myInt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">15</span><span class="p">;</span><span class="w"> </span><span class="c1">// 0xF or 0b1111</span>
+<span class="n">bit</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="n">lastBit</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">myInt</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span><span class="w"> </span><span class="c1">// 1</span>
+<span class="n">bit</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="n">signBit</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">myInt</span><span class="p">[</span><span class="mi">31</span><span class="p">];</span><span class="w"> </span><span class="c1">// 0</span>
+<span class="n">bit</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="n">alsoSignBit</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">myInt</span><span class="p">[</span><span class="mi">-1</span><span class="p">];</span><span class="w"> </span><span class="c1">// 0</span>
+
+<span class="n">bit</span><span class="p">[</span><span class="mi">16</span><span class="p">]</span><span class="w"> </span><span class="n">evenBits</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">myInt</span><span class="p">[</span><span class="mi">0</span><span class="o">:</span><span class="mi">2</span><span class="o">:</span><span class="mi">31</span><span class="p">];</span><span class="w"> </span><span class="c1">// 3</span>
+<span class="n">bit</span><span class="p">[</span><span class="mi">16</span><span class="p">]</span><span class="w"> </span><span class="n">upperBits</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">myInt</span><span class="p">[</span><span class="mi">-16</span><span class="o">:</span><span class="mi">-1</span><span class="p">];</span><span class="w"></span>
+<span class="n">bit</span><span class="p">[</span><span class="mi">16</span><span class="p">]</span><span class="w"> </span><span class="n">upperReversed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">myInt</span><span class="p">[</span><span class="mi">-1</span><span class="o">:</span><span class="mi">-16</span><span class="p">];</span><span class="w"></span>
+
+<span class="n">myInt</span><span class="p">[</span><span class="mi">4</span><span class="o">:</span><span class="mi">7</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;1010&quot;</span><span class="p">;</span><span class="w"> </span><span class="c1">// myInt == 0xAF</span>
+</pre></div>
+</div>
+<p>Bit-level access is still possible with elements of arrays. It is suggested that
+multi-dimensional access be done using the comma-delimited version of the
+subscript operator to reduce confusion. With this convention nearly all
+instances of multiple subscripts <code class="docutils literal notranslate"><span class="pre">[][]</span></code> will be bit-level accesses of array
+elements.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">array</span><span class="p">[</span><span class="kt">int</span><span class="p">[</span><span class="mi">32</span><span class="p">],</span><span class="w"> </span><span class="mi">5</span><span class="p">]</span><span class="w"> </span><span class="n">intArr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">};</span><span class="w"></span>
+<span class="c1">// Access bit 0 of element 0 of intArr and set it to 1</span>
+<span class="n">intArr</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"></span>
+<span class="c1">// lowest 5 bits of intArr[4] copied to b</span>
+<span class="n">bit</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">intArr</span><span class="p">[</span><span class="mi">4</span><span class="p">][</span><span class="mi">0</span><span class="o">:</span><span class="mi">4</span><span class="p">];</span><span class="w"></span>
+</pre></div>
+</div>
+</section>
+<section id="array-concatenation-and-slicing">
+<span id="array-slicing"></span><h2>Array concatenation and slicing<a class="headerlink" href="#array-concatenation-and-slicing" title="Permalink to this headline">¶</a></h2>
+<p>Two or more classical arrays of the same fundamental type can be
+concatenated to form an array of the same type whose size is the
+sum of the sizes of the individual arrays. Unlike with qubit registers, this operation
+copies the contents of the input arrays to form the new (larger) array. This means that
+arrays <em>can</em> be concatenated with themselves. However, the array concatenation
+operator is forbidden to be used directly in the argument list of a subroutine
+or extern call. If a concatenated array is to be passed to a subroutine then it
+should be explicitly declared and assigned the concatenation.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">array</span><span class="p">[</span><span class="kt">int</span><span class="p">[</span><span class="mi">8</span><span class="p">],</span><span class="w"> </span><span class="mi">2</span><span class="p">]</span><span class="w"> </span><span class="n">first</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">};</span><span class="w"></span>
+<span class="n">array</span><span class="p">[</span><span class="kt">int</span><span class="p">[</span><span class="mi">8</span><span class="p">],</span><span class="w"> </span><span class="mi">3</span><span class="p">]</span><span class="w"> </span><span class="n">second</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">};</span><span class="w"></span>
+
+<span class="n">array</span><span class="p">[</span><span class="kt">int</span><span class="p">[</span><span class="mi">8</span><span class="p">],</span><span class="w"> </span><span class="mi">5</span><span class="p">]</span><span class="w"> </span><span class="n">concat</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">first</span><span class="w"> </span><span class="o">++</span><span class="w"> </span><span class="n">second</span><span class="p">;</span><span class="w"></span>
+<span class="n">array</span><span class="p">[</span><span class="kt">int</span><span class="p">[</span><span class="mi">8</span><span class="p">],</span><span class="w"> </span><span class="mi">4</span><span class="p">]</span><span class="w"> </span><span class="n">selfConcat</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">first</span><span class="w"> </span><span class="o">++</span><span class="w"> </span><span class="n">first</span><span class="p">;</span><span class="w"></span>
+
+<span class="n">array</span><span class="p">[</span><span class="kt">int</span><span class="p">[</span><span class="mi">8</span><span class="p">],</span><span class="w"> </span><span class="mi">2</span><span class="p">]</span><span class="w"> </span><span class="n">secondSlice</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">second</span><span class="p">[</span><span class="mi">1</span><span class="o">:</span><span class="mi">2</span><span class="p">];</span><span class="w"> </span><span class="c1">// {3, 4}</span>
+
+<span class="c1">// slicing with assignment</span>
+<span class="n">second</span><span class="p">[</span><span class="mi">1</span><span class="o">:</span><span class="mi">2</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">first</span><span class="p">[</span><span class="mi">0</span><span class="o">:</span><span class="mi">1</span><span class="p">];</span><span class="w"> </span><span class="c1">// second == {2, 0, 1}</span>
+
+<span class="n">array</span><span class="p">[</span><span class="kt">int</span><span class="p">[</span><span class="mi">8</span><span class="p">],</span><span class="w"> </span><span class="mi">4</span><span class="p">]</span><span class="w"> </span><span class="n">third</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mi">5</span><span class="p">,</span><span class="w"> </span><span class="mi">6</span><span class="p">,</span><span class="w"> </span><span class="mi">7</span><span class="p">,</span><span class="w"> </span><span class="mi">8</span><span class="p">};</span><span class="w"></span>
+<span class="c1">// combined slicing and concatenation</span>
+<span class="n">selfConcat</span><span class="p">[</span><span class="mi">0</span><span class="o">:</span><span class="mi">3</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">first</span><span class="p">[</span><span class="mi">0</span><span class="o">:</span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="o">++</span><span class="w"> </span><span class="n">third</span><span class="p">[</span><span class="mi">1</span><span class="o">:</span><span class="mi">2</span><span class="p">];</span><span class="w"></span>
+<span class="c1">// selfConcat == {0, 1, 6, 7}</span>
+
+<span class="n">subroutine_call</span><span class="p">(</span><span class="n">first</span><span class="w"> </span><span class="o">++</span><span class="w"> </span><span class="n">third</span><span class="p">)</span><span class="w"> </span><span class="c1">// forbidden</span>
+<span class="n">subroutine_call</span><span class="p">(</span><span class="n">selfConcat</span><span class="p">)</span><span class="w"> </span><span class="c1">// allowed</span>
+</pre></div>
+</div>
+<p>Arrays can be sliced just like quantum registers using index sets. Slicing uses
+the subscript operator <code class="docutils literal notranslate"><span class="pre">[]</span></code>, but produces an array (or reference in the case
+of assignment) with the same number of dimensions as the given identifier.
+Array slicing is syntactic sugar for concisely expressing for loops over
+multi-dimensional arrays.
+For sliced assignments, as with non-sliced assignments, the shapes and types of
+the slices must match.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="p">[</span><span class="mi">8</span><span class="p">]</span><span class="w"> </span><span class="n">scalar</span><span class="p">;</span><span class="w"></span>
+<span class="n">array</span><span class="p">[</span><span class="kt">int</span><span class="p">[</span><span class="mi">8</span><span class="p">],</span><span class="w"> </span><span class="mi">2</span><span class="p">]</span><span class="w"> </span><span class="n">oneD</span><span class="p">;</span><span class="w"></span>
+<span class="n">array</span><span class="p">[</span><span class="kt">int</span><span class="p">[</span><span class="mi">8</span><span class="p">],</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">]</span><span class="w"> </span><span class="n">twoD</span><span class="p">;</span><span class="w"> </span><span class="c1">// 3x2</span>
+<span class="n">array</span><span class="p">[</span><span class="kt">int</span><span class="p">[</span><span class="mi">8</span><span class="p">],</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">]</span><span class="w"> </span><span class="n">anotherTwoD</span><span class="p">;</span><span class="w"> </span><span class="c1">// 3x2</span>
+<span class="n">array</span><span class="p">[</span><span class="kt">int</span><span class="p">[</span><span class="mi">8</span><span class="p">],</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">]</span><span class="w"> </span><span class="n">threeD</span><span class="p">;</span><span class="w"> </span><span class="c1">// 4x3x2</span>
+<span class="n">array</span><span class="p">[</span><span class="kt">int</span><span class="p">[</span><span class="mi">8</span><span class="p">],</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">]</span><span class="w"> </span><span class="n">anotherThreeD</span><span class="p">;</span><span class="w"> </span><span class="c1">// 2x3x4</span>
+
+<span class="n">threeD</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">scalar</span><span class="p">;</span><span class="w"> </span><span class="c1">// allowed</span>
+<span class="n">threeD</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">oneD</span><span class="p">;</span><span class="w"> </span><span class="c1">// allowed</span>
+<span class="n">threeD</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">twoD</span><span class="p">;</span><span class="w"> </span><span class="c1">// allowed</span>
+
+<span class="n">threeD</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">oneD</span><span class="p">;</span><span class="w"> </span><span class="c1">// error - shape mismatch</span>
+<span class="n">threeD</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">scalar</span><span class="w"> </span><span class="c1">// error - shape mismatch</span>
+<span class="n">threeD</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">anotherThreeD</span><span class="w"> </span><span class="c1">// error - shape mismatch</span>
+
+<span class="n">twoD</span><span class="p">[</span><span class="mi">1</span><span class="o">:</span><span class="mi">2</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">anotherTwoD</span><span class="p">[</span><span class="mi">0</span><span class="o">:</span><span class="mi">1</span><span class="p">];</span><span class="w"> </span><span class="c1">// allowed</span>
+<span class="n">twoD</span><span class="p">[</span><span class="mi">1</span><span class="o">:</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">anotherTwoD</span><span class="p">[</span><span class="mi">0</span><span class="o">:</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">];</span><span class="w"> </span><span class="c1">// allowed</span>
 </pre></div>
 </div>
 </section>
@@ -586,9 +854,13 @@ dividing a duration by a duration produces a machine-precision <code class="docu
 <li class="toctree-l3"><a class="reference internal" href="#generalities">Generalities</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#quantum-types">Quantum types</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#classical-types">Classical types</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#arrays">Arrays</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#types-related-to-timing">Types related to timing</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#aliasing">Aliasing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#index-sets-and-slicing">Index sets and slicing</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#register-concatenation-and-slicing">Register concatenation and slicing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#classical-value-bit-slicing">Classical value bit slicing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#array-concatenation-and-slicing">Array concatenation and slicing</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#casting-specifics">Casting specifics</a></li>
 </ul>
 </li>
@@ -643,7 +915,7 @@ dividing a duration by a duration produces a machine-precision <code class="docu
       &copy;2017-2020, Andrew W. Cross, Lev S. Bishop, John A. Smolin, Jay M. Gambetta.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.3.1</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.4.0</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |

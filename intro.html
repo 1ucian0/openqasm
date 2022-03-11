@@ -73,6 +73,25 @@ the motivation for various design choices. A forthcoming paper will provide this
 document also does not seek to define the execution environment that accepts OpenQASM as an input.
 For the previous versions of OpenQASM please read <a class="reference external" href="https://arxiv.org/abs/1707.03429">arXiv:1707.03429</a>.</p>
 </section>
+<section id="implementation-details">
+<h2>Implementation Details<a class="headerlink" href="#implementation-details" title="Permalink to this headline">¶</a></h2>
+<p>OpenQASM 3 is a large expansion over the previous OpenQASM 2 specification.
+Many new features for classical control flow and computation are added to make writing quantum algorithms easier, and to describe classical data processing that forms part of these algorithms.
+The language, however, is not designed to be used for general-purpose classical computation, and in the near term, any hardware that executes an OpenQASM 3 program is unlikely to support the full set of data manipulations the language can describe.</p>
+<p>Hardware implementations of OpenQASM 3 are permitted to restrict their runtime processing to only the set of operations that they can perform efficiently and in real time.
+This set of operations will differ between implementations; you should consult your hardware vendor for which language features you can expect to be possible at runtime.
+Implementations are likely to become more powerful over time, as the requirements for quantum control become less onerous to achieve.</p>
+<p>It is expected that <em>compilers</em> for OpenQASM 3 will support all of the classical operations specified in this document for values that can be reasonably inferred to be compile-time constants, and will perform these operations at compile time.
+At a minimum, “reasonably inferred” means values declared <code class="docutils literal notranslate"><span class="pre">const</span></code>, and literals.
+For example, this means that the “scientific-calculator functions” such as <code class="docutils literal notranslate"><span class="pre">sin</span></code>, <code class="docutils literal notranslate"><span class="pre">exp</span></code>, and so on will always work on expressions involving only literals and values declared <code class="docutils literal notranslate"><span class="pre">const</span></code> of compatible types, and the compiler will completely fold such expressions into a single constant.
+Whether such operations can occur on run-time values is implementation-specific.
+This extends further, even to which types may be declared and used.
+An implementation of OpenQASM 3 is permitted to reject programs that use, for example, <code class="docutils literal notranslate"><span class="pre">int[5]</span></code> or <code class="docutils literal notranslate"><span class="pre">float[16]</span></code> declarations, if the hardware has no facilities to support them.
+Similarly, even if a hardware implementation accepts values declared <code class="docutils literal notranslate"><span class="pre">complex[float[64]]</span></code>, it is not required to accept programs that use the infix <code class="docutils literal notranslate"><span class="pre">**</span></code> power operator on them at runtime, but a compiler is required to evaluate such operator expressions if the operands are compile-time known.</p>
+<p>Hardware implementations that support a particular feature <em>must</em> follow the rules for it given in this specification, unless such a feature is specifically stated to be “implementation-defined”.
+If they cannot, then they <em>must not</em> accept programs that use that feature.
+The user can therefore expect that if an OpenQASM 3 program accepted by two implementations, both will perform the same behaviour except in cases this document explicitly allows it to differ.</p>
+</section>
 <section id="contributors">
 <h2>Contributors<a class="headerlink" href="#contributors" title="Permalink to this headline">¶</a></h2>
 <p>The following individuals contributed to the OpenQASM version 3.0 specification:</p>
@@ -130,6 +149,7 @@ Ntwali Bashige Toussaint <a class="footnote-reference brackets" href="#id16" id=
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Introduction</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#design-goals">Design Goals</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#scope">Scope</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#implementation-details">Implementation Details</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#contributors">Contributors</a></li>
 </ul>
 </li>
@@ -172,7 +192,7 @@ Ntwali Bashige Toussaint <a class="footnote-reference brackets" href="#id16" id=
       &copy;2017-2020, Andrew W. Cross, Lev S. Bishop, John A. Smolin, Jay M. Gambetta.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.3.1</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.4.0</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |

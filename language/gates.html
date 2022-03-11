@@ -67,7 +67,7 @@ global phase. For example <code class="docutils literal notranslate"><span class
 <p>New gates are associated to a unitary transformation by defining them as a sequence of built-in or
 previously defined gates. For example the <code class="docutils literal notranslate"><span class="pre">gate</span></code> block</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">gate</span><span class="w"> </span><span class="n">h</span><span class="w"> </span><span class="n">q</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">   </span><span class="n">U</span><span class="p">(</span><span class="err">π</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="err">π</span><span class="p">)</span><span class="w"> </span><span class="n">q</span><span class="p">;</span><span class="w"></span>
+<span class="w">   </span><span class="n">U</span><span class="p">(</span><span class="n">π</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">π</span><span class="p">)</span><span class="w"> </span><span class="n">q</span><span class="p">;</span><span class="w"></span>
 <span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
@@ -77,8 +77,8 @@ implemented by an instruction <code class="docutils literal notranslate"><span c
 the user and/or compiler, given information about the instructions supported by a particular target.</p>
 <p>Controlled gates can be constructed by adding a control modifier to an existing gate. For example,
 the NOT gate is given by <code class="docutils literal notranslate"><span class="pre">X</span> <span class="pre">=</span> <span class="pre">U(π,</span> <span class="pre">0,</span> <span class="pre">π)</span></code> and the block</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">gate</span><span class="w"> </span><span class="n">CX</span><span class="w"> </span><span class="n">c</span><span class="p">,</span><span class="w"> </span><span class="n">t</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">   </span><span class="n">ctrl</span><span class="w"> </span><span class="err">@</span><span class="w"> </span><span class="n">U</span><span class="p">(</span><span class="err">π</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="err">π</span><span class="p">)</span><span class="w"> </span><span class="n">c</span><span class="p">,</span><span class="w"> </span><span class="n">t</span><span class="p">;</span><span class="w"></span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">gate</span><span class="w"> </span><span class="n">CX</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">   </span><span class="n">ctrl</span><span class="w"> </span><span class="err">@</span><span class="w"> </span><span class="n">U</span><span class="p">(</span><span class="n">π</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">π</span><span class="p">)</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">;</span><span class="w"></span>
 <span class="p">}</span><span class="w"></span>
 
 <span class="n">CX</span><span class="w"> </span><span class="n">q</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="w"> </span><span class="n">q</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span><span class="w"></span>
@@ -152,7 +152,7 @@ of <span class="math notranslate nohighlight">\(e^{i\gamma}\)</span> to the scop
 <span class="w">  </span><span class="n">gphase</span><span class="p">(</span><span class="o">-</span><span class="n">tau</span><span class="o">/</span><span class="mi">2</span><span class="p">);</span><span class="w"></span>
 <span class="w">  </span><span class="n">U</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">tau</span><span class="p">)</span><span class="w"> </span><span class="n">q</span><span class="p">;</span><span class="w"></span>
 <span class="p">}</span><span class="w"></span>
-<span class="n">ctrl</span><span class="w"> </span><span class="err">@</span><span class="w"> </span><span class="n">rz</span><span class="p">(</span><span class="err">π</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="n">q</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="w"> </span><span class="n">q</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span><span class="w"></span>
+<span class="n">ctrl</span><span class="w"> </span><span class="err">@</span><span class="w"> </span><span class="n">rz</span><span class="p">(</span><span class="n">π</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="n">q</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="w"> </span><span class="n">q</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span><span class="w"></span>
 </pre></div>
 </div>
 <p>constructs the gate</p>
@@ -176,15 +176,15 @@ e^{-i\tau/2} &amp; 0 \\
 transformation by a sequence of built-in gates. For example, a CPHASE
 operation is shown schematically in <a class="reference internal" href="#fig-gate"><span class="std std-numref">Fig. 3</span></a>
 corresponding OpenQASM code is</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">gate</span><span class="w"> </span><span class="nf">cphase</span><span class="p">(</span><span class="err">θ</span><span class="p">)</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="w"></span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">gate</span><span class="w"> </span><span class="nf">cphase</span><span class="p">(</span><span class="n">θ</span><span class="p">)</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="w"></span>
 <span class="p">{</span><span class="w"></span>
-<span class="w">  </span><span class="n">U</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="err">θ</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="n">a</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="n">U</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">θ</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="n">a</span><span class="p">;</span><span class="w"></span>
 <span class="w">  </span><span class="n">CX</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">;</span><span class="w"></span>
-<span class="w">  </span><span class="n">U</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="o">-</span><span class="err">θ</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="n">b</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="n">U</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="o">-</span><span class="n">θ</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="n">b</span><span class="p">;</span><span class="w"></span>
 <span class="w">  </span><span class="n">CX</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">;</span><span class="w"></span>
-<span class="w">  </span><span class="n">U</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="err">θ</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="n">b</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="n">U</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">θ</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="n">b</span><span class="p">;</span><span class="w"></span>
 <span class="p">}</span><span class="w"></span>
-<span class="n">cphase</span><span class="p">(</span><span class="err">π</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="n">q</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="w"> </span><span class="n">q</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span><span class="w"></span>
+<span class="n">cphase</span><span class="p">(</span><span class="n">π</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="n">q</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="w"> </span><span class="n">q</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span><span class="w"></span>
 </pre></div>
 </div>
 <figure class="align-default" id="id6">
@@ -279,8 +279,8 @@ scratch space and may require compilation to be executed.</p>
 <span class="math notranslate nohighlight">\(ctrl &#64; gphase(a) = U(0, 0, a)\)</span>. This is a single qubit gate.</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="c1">// Define a controlled Rz operation using the ctrl gate modifier.</span>
 <span class="c1">// q1 is control, q2 is target</span>
-<span class="n">gate</span><span class="w"> </span><span class="nf">crz</span><span class="p">(</span><span class="err">θ</span><span class="p">)</span><span class="w"> </span><span class="n">q1</span><span class="p">,</span><span class="w"> </span><span class="n">q2</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="n">ctrl</span><span class="w"> </span><span class="err">@</span><span class="w"> </span><span class="n">rz</span><span class="p">(</span><span class="err">θ</span><span class="p">)</span><span class="w"> </span><span class="n">q1</span><span class="p">,</span><span class="w"> </span><span class="n">q2</span><span class="p">;</span><span class="w"></span>
+<span class="n">gate</span><span class="w"> </span><span class="nf">crz</span><span class="p">(</span><span class="n">θ</span><span class="p">)</span><span class="w"> </span><span class="n">q1</span><span class="p">,</span><span class="w"> </span><span class="n">q2</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">ctrl</span><span class="w"> </span><span class="err">@</span><span class="w"> </span><span class="n">rz</span><span class="p">(</span><span class="n">θ</span><span class="p">)</span><span class="w"> </span><span class="n">q1</span><span class="p">,</span><span class="w"> </span><span class="n">q2</span><span class="p">;</span><span class="w"></span>
 <span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
@@ -290,7 +290,7 @@ given by <span class="math notranslate nohighlight">\(N_U = I \otimes U^{1-c}\)<
 and <span class="math notranslate nohighlight">\(N_U\)</span> is the negative controlled-<span class="math notranslate nohighlight">\(U\)</span> gate.</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="c1">// Define a negative controlled X operation using the negctrl gate modifier.</span>
 <span class="c1">// q1 is control, q2 is target</span>
-<span class="n">gate</span><span class="w"> </span><span class="nf">neg_cx</span><span class="p">(</span><span class="err">θ</span><span class="p">)</span><span class="w"> </span><span class="n">q1</span><span class="p">,</span><span class="w"> </span><span class="n">q2</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="n">gate</span><span class="w"> </span><span class="nf">neg_cx</span><span class="p">(</span><span class="n">θ</span><span class="p">)</span><span class="w"> </span><span class="n">q1</span><span class="p">,</span><span class="w"> </span><span class="n">q2</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">    </span><span class="n">negctrl</span><span class="w"> </span><span class="err">@</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="n">q1</span><span class="p">,</span><span class="w"> </span><span class="n">q2</span><span class="p">;</span><span class="w"></span>
 <span class="p">}</span><span class="w"></span>
 </pre></div>
@@ -438,7 +438,7 @@ that of the built-in gates.</p>
       &copy;2017-2020, Andrew W. Cross, Lev S. Bishop, John A. Smolin, Jay M. Gambetta.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.3.1</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.4.0</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |
